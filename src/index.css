@@ -82,3 +82,16 @@ body {
 .top-header .social-icons li a:hover {
   @apply text-theme-primary;
 }
+
+/* Bottom Header */
+.main-menu {
+  @apply flex justify-center
+}
+
+.main-menu a {
+  @apply flex items-center justify-center h-auto lg:h-[70px] py-2 lg:py-0 px-0 lg:px-4 font-medium hover:text-theme-primary duration-300;
+}
+
+.main-menu a.active {
+  @apply text-theme-primary relative before:content-none lg:before:content-[''] before:w-[90%] before:h-0.5 before:absolute before:-translate-x-[50%] before:left-[50%] before:mt-6 before:bg-linear-to-r before:from-theme-primary/0 before:via-theme-primary before:to-theme-primary/0;
+}
