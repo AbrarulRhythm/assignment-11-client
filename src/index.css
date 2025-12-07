@@ -1,5 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
 @plugin "daisyui" {
   themes: light --default;
+}
+
+@theme {
+  /* Google Font */
+  --font-Poppins: "Poppins", "sans-serif";
+
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+
+  /* =========== Colors =========== */
+  --color-theme-primary: #00A3FF;
+  --color-page-bg: #FFFFFF;
+  --color-content-bg: #F9F9F9;
+  --color-text-muted: #99A1B7;
+
+  /* Dark */
+  --color-dark-01: #F9F9F9;
+  --color-dark-02: #F1F1F2;
+  --color-dark-03: #DBDFE9;
+  --color-dark-04: #B5B5C3;
+  --color-dark-05: #99A1B7;
+  --color-dark-06: #78829D;
+  --color-dark-07: #78829D;
+  --color-dark-08: #252F4A;
+  --color-dark-09: #071437;
+
+  /* Shadow (for button hover)*/
+  --shadow-btn-inner: inset 0px 0px 122px rgba(0, 0, 0, 0.22);
+}
+
+/* [ General ] */
+/*================================================== */
+
+/*** Common CSS ***/
+html,
+body {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply font-Poppins bg-page-bg text-base text-dark-06 font-normal relative overflow-x-hidden;
+}
+
+::selection {
+  @apply text-dark-09 bg-theme-primary;
+}
+
+.container {
+  @apply mx-auto sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1240px] xxl:max-w-[1420px] px-3;
+}
+
+/* [ General ] */
+/*================================================== */
+.button {
+  @apply text-base font-medium py-3 lg:py-4 px-7 lg:px-8 border rounded-md duration-300 cursor-pointer;
+}
+
+.button-fill {
+  @apply bg-theme-primary text-white hover:shadow-btn-inner;
+}
+
+.button-outline {
+  @apply bg-white border-dark-03 text-dark-09 hover:border-dark-09 hover:bg-dark-09 hover:text-white;
 }
