@@ -71,3 +71,14 @@ body {
 .button-outline {
   @apply bg-white border-dark-03 text-dark-09 hover:border-dark-09 hover:bg-dark-09 hover:text-white;
 }
+
+/* [ Header ] */
+/*================================================== */
+/* Top Header */
+.top-header ul li {
+  @apply flex items-center gap-1.5;
+}
+
+.top-header .social-icons li a:hover {
+  @apply text-theme-primary;
+}

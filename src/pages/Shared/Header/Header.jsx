@@ -1,11 +1,11 @@
 import React from 'react';
-import Logo from '../../../components/Logo/Logo';
+import TopHeader from './TopHeader';
 
 const Header = () => {
     return (
-        <div>
-            <Logo color="text-dark-08"></Logo>
-        </div>
+        <>
+            <TopHeader></TopHeader>
+        </>
     );
 };
 
