@@ -231,3 +231,13 @@ p {
     width: 68%;
   } */
 }
+
+.rfm-marquee-container,
+.rfm-initial-child-container,
+.rfm-marquee {
+  @apply flex gap-11 md:gap-20
+}
+
+.rfm-marquee img {
+  @apply w-[100px] md:w-auto
+}
