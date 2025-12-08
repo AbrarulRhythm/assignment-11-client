@@ -1,10 +1,13 @@
 import React from 'react';
+import HeroSlider from '../HeroSlider/HeroSlider';
 
 const Home = () => {
     return (
-        <div className='mt-[92px] lg:mt-[118px]'>
-            This is Home
-        </div>
+        <>
+            <section className='hero-ection'>
+                <HeroSlider></HeroSlider>
+            </section>
+        </>
     );
 };
 

@@ -8,7 +8,7 @@ const Logo = ({ color = 'text-dark-08' }) => {
             <img src={logoIcon} alt='Logo' />
             <div>
                 <h4 className={`${color} text-2xl font-bold`}><span className='text-theme-primary'>e</span>TuitionBd</h4>
-                <span className='text-[10px] -mt-1 block'>Education Simplified</span>
+                <span className='text-[10px] -mt-px block'>Education Simplified</span>
             </div>
         </Link>
     );
