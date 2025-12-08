@@ -38,6 +38,7 @@
 
   --animate-rotate: rotate 11.3s linear infinite;
   --animate-scroll: scroll 30s linear infinite;
+  --animate-move1: move1 3s infinite linear;
 
   @keyframes rotate {
     0% {
@@ -56,6 +57,20 @@
 
     100% {
       transform: translateX(-100%);
+    }
+  }
+
+  @keyframes move1 {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-24px);
+    }
+
+    100% {
+      transform: translateY(0);
     }
   }
 }
