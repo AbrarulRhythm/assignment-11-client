@@ -116,14 +116,14 @@ p {
   @apply absolute h-px bg-red-200 top-[50%] -translate-[50%];
 } */
 
-/* [ General ] */
+/* [ Button ] */
 /*================================================== */
 .button {
   @apply text-base font-medium py-3 lg:py-4 px-7 lg:px-8 border rounded-md duration-300 cursor-pointer;
 }
 
 .button-fill {
-  @apply bg-theme-primary text-white hover:shadow-btn-inner;
+  @apply bg-theme-primary text-white hover:shadow-btn-inner disabled:shadow-btn-inner disabled:cursor-default;
 }
 
 .button-outline {

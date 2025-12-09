@@ -2,23 +2,59 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye } from 'react-icons/fa';
 import { IoEyeOff } from 'react-icons/io5';
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import useAuth from '../../../hooks/useAuth';
+import { toast } from 'react-toastify';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Register = () => {
+    const { createUser, updateUserProfile } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const {
         register,
         handleSubmit,
         reset,
-        formState: { errors }
+        formState: { errors, isSubmitting }
     } = useForm();
 
     // Handle Register
-    const handleRegister = (data) => {
-        console.log(data);
+    const handleRegister = async (data) => {
+        try {
+            // 1. Create User
+            await createUser(data.email, data.password);
+
+            // 2. Create user in DataBase
+            const userInfo = {
+                displayName: data.name,
+                email: data.email,
+                phone: data.phone,
+                role: data.role
+            }
+
+            await axiosSecure.post('/users', userInfo);
+
+            // 3. Update to the Firebase Profile
+            await updateUserProfile({ displayName: data.name });
+
+            // 4. Finish
+            reset(); // form reset
+            navigate(location?.state || '/');
+            toast.success(`Dear ${data.name}, your account has been successfully created 🎉`);
+
+        }
+        catch (error) {
+            const message =
+                error?.response?.data?.message ||
+                error?.message ||
+                "Something went wrong";
+
+            toast.error(message);
+        }
     }
 
     return (
@@ -93,7 +129,7 @@ const Register = () => {
                             <span className={`${errors.role ? 'block mt-1' : 'hidden'} text-sm text-red-500`}>{errors.role && errors.role.message}</span>
                         </div>
                     </div>
-                    <button className='w-full rounded-md py-3.5 px-4 button-fill duration-300 cursor-pointer mt-3'>Register</button>
+                    <button type='submit' className='w-full rounded-md py-3.5 px-4 button-fill duration-300 cursor-pointer mt-3' disabled={isSubmitting}>{isSubmitting ? <span className='loading loading-spinner loading-sm'></span> : 'Register'}</button>
                 </form>
                 <div className='mb-6'>
                     <SocialLogin
