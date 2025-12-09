@@ -104,8 +104,7 @@ const BottomHeader = () => {
                                                     setOpenProfileMenu(!openProfileMenu);
                                                 }}
                                                 className='cursor-pointer w-14 h-14'>
-                                                <img src={user?.photoURL || defaultUser} className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="" />
-                                                {/* <img src={`${user && user.photoURL}`} className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="" /> */}
+                                                <img src={user?.photoURL || defaultUser} className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="Profile Image" />
                                             </div>
                                             <ProfileMenu
                                                 menuRef={menuRef}

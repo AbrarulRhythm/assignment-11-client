@@ -272,3 +272,13 @@ p {
 .rfm-marquee img {
   @apply w-[100px] md:w-auto
 }
+
+/* [ Header ] */
+/*================================================== */
+.side-nav ul a {
+  @apply px-4 py-4 rounded-md hover:text-theme-primary duration-300;
+}
+
+.side-nav ul a.active {
+  @apply bg-content-bg text-theme-primary;
+}

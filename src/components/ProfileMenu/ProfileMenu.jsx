@@ -6,9 +6,11 @@ import { PiSignOutBold } from 'react-icons/pi';
 import defaultUser from '../../assets/default-user.png';
 import { IoSettingsOutline } from "react-icons/io5";
 import { toast } from 'react-toastify';
+import useRole from '../../hooks/useRole';
 
 const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
     const { user, userSignOut } = useAuth();
+    const { isLoading, role } = useRole();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -35,12 +37,22 @@ const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
             });
     }
 
+    // Display role
+    const displayRole = role ? role.charAt(0).toUpperCase() + role.slice(1) : '';
+
     return (
         <div className={`${openProfileMenu ? 'opacity-100 visible' : 'opacity-0 invisible'} absolute right-0 top-[76px] w-[294px] h-auto text-sm before:content-[''] before:w-6 before:h-6  before:absolute before:-top-3 before:right-3.5 before:bg-white before:rotate-45 before:rounded-tl-sm before:border-t before:border-l before:border-dark-03 rounded-md bg-white border border-dark-03 z-50`}>
             <div className='pt-8 mb-6'>
                 <img src={user?.photoURL || defaultUser} className='w-11 h-11 object-cover rounded-full mx-auto mb-2' alt='User Profile Pic' />
                 <h5 className='text-dark-12 text-sm font-medium text-center'>{user && user.displayName}</h5>
-                <span className='text-center block text-sm'>User Role</span>
+                <span className='text-center block text-sm'>
+                    {/* Loading State */}
+                    {isLoading ? (
+                        <span className="skeleton skeleton-text">User Role</span>
+                    ) :
+                        displayRole
+                    }
+                </span>
             </div>
             <ul>
                 <li>

@@ -5,6 +5,10 @@ import Home from "../pages/Home/Home/Home";
 import AuthLayout from "../layout/AuthLayout";
 import Login from "../pages/Auth/Login/Login";
 import Register from "../pages/Auth/Register/Register";
+import DashboardLayout from "../layout/DashboardLayout";
+import DashboardOverview from "../pages/Dashboard/DashboardOverview/DashboardOverview";
+import MyTuitions from "../pages/Dashboard/MyTuitions/MyTuitions";
+import PostNewTuition from "../pages/Dashboard/PostNewTuition/PostNewTuition";
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +33,24 @@ export const router = createBrowserRouter([
             {
                 path: 'register',
                 Component: Register
+            }
+        ]
+    },
+    {
+        path: 'dashboard',
+        element: <DashboardLayout></DashboardLayout>,
+        children: [
+            {
+                path: 'overview',
+                Component: DashboardOverview
+            },
+            {
+                path: 'my-tuitions',
+                Component: MyTuitions
+            },
+            {
+                path: 'post-new-tuition',
+                Component: PostNewTuition
             }
         ]
     }
