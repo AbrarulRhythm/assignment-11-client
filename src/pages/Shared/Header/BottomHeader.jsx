@@ -54,7 +54,7 @@ const BottomHeader = () => {
         ${navStickyMovedUp ? 'fixed top-0 -mt-[108px]' : 'absolute'}
         ${stickyNavTransition ? 'duration-500' : ''}
         ${isSticky ? 'mt-0 duration-500 shadow-md bg-white py-4 lg:py-3' : 'py-6'}
-        left-0 right-0  bottom-header z-30`}>
+        left-0 right-0  bottom-header z-50`}>
             <div className='container'>
                 <nav className='primary-menu relative'>
                     <div className='flex flex-wrap -mx-3 items-center justify-between'>
