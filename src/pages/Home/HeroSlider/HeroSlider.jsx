@@ -11,7 +11,7 @@ const HeroSlider = () => {
                         <div className='w-full lg:w-6/12 px-3 mb-7 lg:mb-0'>
                             <h1 className='text-[26px] sm:text-[28px] md:text-[34px] md:max-w-[558px] lg:max-w-none lg:text-[44px] 2xl:text-[55px] font-bold text-dark-09 mb-3 lg:mb-3.5'>Connect Students and Tutors in One <span className='text-white bg-theme-primary rounded-md py-px px-3.5'>Smart</span> Platform</h1>
                             <p className='max-w-[558px] text-base lg:text-lg'>Easily post tuitions, apply as a tutor, and stay connected, all in one seamless platform.</p>
-                            <Link to='/' className='button button-fill inline-block mt-4 lg:mt-6'>Get Started</Link>
+                            <Link to='/login' className='button button-fill inline-block mt-4 lg:mt-6'>Get Started</Link>
                         </div>
                         <div className='w-full lg:w-6/12 px-3'>
                             <div className='hero-image-wrap'>

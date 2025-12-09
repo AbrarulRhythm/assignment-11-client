@@ -79,7 +79,7 @@ const BottomHeader = () => {
                                 </ul>
                                 <div className='flex lg:hidden flex-col text-center gap-3 mt-4'>
                                     <Link to='/login' className='text-dark-09 py-3 px-7 rounded-md border border-dark-03 hover:bg-dark-09 hover:text-white hover:border-dark-09 duration-300 cursor-pointer'>Login</Link>
-                                    <Link to='sign-up' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
+                                    <Link to='/register' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@ const BottomHeader = () => {
 
                                 <div className='space-x-3 hidden lg:block'>
                                     <Link to='/login' className='text-dark-09 py-3 px-7 rounded-md border border-dark-03 hover:bg-dark-09 hover:text-white hover:border-dark-09 duration-300 cursor-pointer'>Login</Link>
-                                    <Link to='sign-up' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
+                                    <Link to='/register' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
                                 </div>
                             </div>
                         </div>
