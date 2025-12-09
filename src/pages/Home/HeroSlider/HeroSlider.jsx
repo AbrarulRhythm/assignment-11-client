@@ -4,7 +4,7 @@ import heroImage from '../../../assets/hero-image.png';
 
 const HeroSlider = () => {
     return (
-        <div className='mt-[92px] lg:mt-[118px] py-5 lg:py-[72px] relative'>
+        <div className='mt-[92px] lg:mt-[118px] py-5 lg:py-[62px] 2xl:py-[72px] relative'>
             <div className='container'>
                 <div className='hero-slider-content z-20 relative'>
                     <div className='flex flex-wrap -mx-3 items-center'>
