@@ -1,8 +1,13 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router';
+import { Link, Outlet, useLocation } from 'react-router';
 import logo from '../assets/logo-full-white.png';
 
 const AuthLayout = () => {
+    const { pathname } = useLocation();
+
+    const isLogin = pathname.includes('login');
+    const isRegister = pathname.includes('register');
+
     return (
         // Main Wrapper
         <div className='main-wrapper'>
@@ -26,8 +31,15 @@ const AuthLayout = () => {
                             <div className='flex flex-wrap my-auto'>
                                 <div className='w-11/12 md:w-10/12 lg:w-9/12 mx-auto'>
                                     <div className='relative z-10'>
-                                        <h1 className='text-white text-3xl md:text-[32px] lg:text-[44px] leading-[1.3] font-semibold mb-4'>Looks like you're new here!</h1>
-                                        <div className='text-base md:text-lg leading-[1.8] lg:leading-normal text-white'>Join our group in few minutes! Sign up with your details to get started</div>
+                                        {/* Dynamic Title & Subtitle */}
+                                        <h1 className='text-white text-3xl md:text-[32px] lg:text-[44px] leading-[1.3] font-semibold mb-4'>
+                                            {isLogin && 'Welcome back!'}
+                                            {isRegister && "Looks like you're new here!"}
+                                        </h1>
+                                        <div className='text-base md:text-lg leading-[1.8] lg:leading-normal text-white'>
+                                            {isLogin && 'We are glad to see you again! Get access to your Orders, Wishlist and Recommendations.'}
+                                            {isRegister && "Join our group in few minutes! Sign up with your details to get started"}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
