@@ -83,10 +83,12 @@ const BottomHeader = () => {
                                         <NavLink to='/contact'>Contact</NavLink>
                                     </li>
                                 </ul>
-                                <div className='flex lg:hidden flex-col text-center gap-3 mt-4'>
-                                    <Link to='/login' className='text-dark-09 py-3 px-7 rounded-md border border-dark-03 hover:bg-dark-09 hover:text-white hover:border-dark-09 duration-300 cursor-pointer'>Login</Link>
-                                    <Link to='/register' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
-                                </div>
+                                {!user && <>
+                                    <div className='flex lg:hidden flex-col text-center gap-3 mt-4'>
+                                        <Link to='/login' className='text-dark-09 py-3 px-7 rounded-md border border-dark-03 hover:bg-dark-09 hover:text-white hover:border-dark-09 duration-300 cursor-pointer'>Login</Link>
+                                        <Link to='/register' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
+                                    </div>
+                                </>}
                             </div>
                         </div>
                         <div className='w-auto lg:w-3/12 px-3'>
