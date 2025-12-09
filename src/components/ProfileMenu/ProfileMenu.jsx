@@ -4,9 +4,11 @@ import useAuth from '../../hooks/useAuth';
 import { LuLayoutDashboard, LuUserRound } from 'react-icons/lu';
 import { PiSignOutBold } from 'react-icons/pi';
 import defaultUser from '../../assets/default-user.png';
+import { IoSettingsOutline } from "react-icons/io5";
+import { toast } from 'react-toastify';
 
 const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
-    const { user } = useAuth();
+    const { user, userSignOut } = useAuth();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -22,6 +24,17 @@ const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
         }
     }, [menuRef, setOpenProfileMenu]);
 
+    // Handle Sign Out 
+    const handleSignOut = () => {
+        userSignOut()
+            .then(() => {
+                toast.success('Successfully signed out! We hope to see you again soon.');
+            })
+            .catch(error => {
+                toast.error(error.message);
+            });
+    }
+
     return (
         <div className={`${openProfileMenu ? 'opacity-100 visible' : 'opacity-0 invisible'} absolute right-0 top-[76px] w-[294px] h-auto text-sm before:content-[''] before:w-6 before:h-6  before:absolute before:-top-3 before:right-3.5 before:bg-white before:rotate-45 before:rounded-tl-sm before:border-t before:border-l before:border-dark-03 rounded-md bg-white border border-dark-03 z-50`}>
             <div className='pt-8 mb-6'>
@@ -31,19 +44,26 @@ const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
             </div>
             <ul>
                 <li>
+                    <Link to='/dashboard/overview' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
+                        <LuLayoutDashboard className='text-lg' /> Dashboard
+                    </Link>
+                </li>
+                <li>
                     <Link to='/' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
                         <LuUserRound className='text-lg' /> My Profile
                     </Link>
                 </li>
                 <li>
-                    <Link to='/dashboard/overview' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
-                        <LuLayoutDashboard className='text-lg' /> Dashboard
+                    <Link to='/' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
+                        <IoSettingsOutline className='text-lg' /> Account Settings
                     </Link>
                 </li>
             </ul>
             <div className='border-t-0 border border-dark-03 my-4'></div>
             <div className='px-4 pb-3'>
-                <button className='w-full px-3 py-3 rounded-md border border-dark-03 bg-gray-100 hover:bg-gray-200 duration-300 cursor-pointer flex items-center justify-center gap-1 font-medium'><PiSignOutBold className='text-lg' /> Sing Out</button>
+                <button
+                    onClick={handleSignOut}
+                    className='w-full px-3 py-3 rounded-md border border-dark-03 bg-gray-100 hover:bg-gray-200 duration-300 cursor-pointer flex items-center justify-center gap-1 font-medium'><PiSignOutBold className='text-lg' /> Sing Out</button>
             </div>
         </div>
     );
