@@ -1,0 +1,52 @@
+import React, { useEffect } from 'react';
+import { Link } from 'react-router';
+import useAuth from '../../hooks/useAuth';
+import { LuLayoutDashboard, LuUserRound } from 'react-icons/lu';
+import { PiSignOutBold } from 'react-icons/pi';
+import defaultUser from '../../assets/default-user.png';
+
+const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
+    const { user } = useAuth();
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setOpenProfileMenu(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, [menuRef, setOpenProfileMenu]);
+
+    return (
+        <div className={`${openProfileMenu ? 'opacity-100 visible' : 'opacity-0 invisible'} absolute right-0 top-[76px] w-[294px] h-auto text-sm before:content-[''] before:w-6 before:h-6  before:absolute before:-top-3 before:right-3.5 before:bg-white before:rotate-45 before:rounded-tl-sm before:border-t before:border-l before:border-dark-03 rounded-md bg-white border border-dark-03 z-50`}>
+            <div className='pt-8 mb-6'>
+                <img src={user?.photoURL || defaultUser} className='w-11 h-11 object-cover rounded-full mx-auto mb-2' alt='User Profile Pic' />
+                <h5 className='text-dark-12 text-sm font-medium text-center'>{user && user.displayName}</h5>
+                <span className='text-center block text-sm'>User Role</span>
+            </div>
+            <ul>
+                <li>
+                    <Link to='/' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
+                        <LuUserRound className='text-lg' /> My Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link to='/dashboard/overview' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
+                        <LuLayoutDashboard className='text-lg' /> Dashboard
+                    </Link>
+                </li>
+            </ul>
+            <div className='border-t-0 border border-dark-03 my-4'></div>
+            <div className='px-4 pb-3'>
+                <button className='w-full px-3 py-3 rounded-md border border-dark-03 bg-gray-100 hover:bg-gray-200 duration-300 cursor-pointer flex items-center justify-center gap-1 font-medium'><PiSignOutBold className='text-lg' /> Sing Out</button>
+            </div>
+        </div>
+    );
+};
+
+export default ProfileMenu;

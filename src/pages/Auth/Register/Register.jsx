@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Register = () => {
-    const { createUser, updateUserProfile } = useAuth();
+    const { user, createUser, updateUserProfile } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
@@ -55,6 +55,10 @@ const Register = () => {
 
             toast.error(message);
         }
+    }
+
+    if (user) {
+        navigate(location?.state || '/');
     }
 
     return (

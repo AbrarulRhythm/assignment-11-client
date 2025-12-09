@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Logo from '../../../components/Logo/Logo';
 import { Link, NavLink } from 'react-router';
 import { HiMiniBars3BottomRight } from 'react-icons/hi2';
 import { MdClose } from 'react-icons/md';
+import useAuth from '../../../hooks/useAuth';
+import ProfileMenu from '../../../components/ProfileMenu/ProfileMenu';
+import defaultUser from '../../../assets/default-user.png';
 
 const BottomHeader = () => {
     const [openNavMenu, setOpenNavMenu] = useState(false);
     const [navStickyMovedUp, setNavStickyMovedUp] = useState(false);
     const [stickyNavTransition, setStickyNavTransition] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
+    const { user } = useAuth();
+    const menuRef = useRef(null);
+    const [openProfileMenu, setOpenProfileMenu] = useState(false);
 
     // Sticky Navbar
     useEffect(() => {
@@ -84,15 +90,36 @@ const BottomHeader = () => {
                             </div>
                         </div>
                         <div className='w-auto lg:w-3/12 px-3'>
-                            <div className='flex justify-end'>
+                            <div className='flex justify-end items-center gap-2.5'>
                                 <div onClick={() => setOpenNavMenu(!openNavMenu)} className='w-11 h-11 rounded-sm justify-center items-center text-2xl flex lg:hidden bg-theme-primary/14 text-theme-primary'>
                                     {openNavMenu ? <MdClose /> : <HiMiniBars3BottomRight />}
                                 </div>
 
-                                <div className='space-x-3 hidden lg:block'>
-                                    <Link to='/login' className='text-dark-09 py-3 px-7 rounded-md border border-dark-03 hover:bg-dark-09 hover:text-white hover:border-dark-09 duration-300 cursor-pointer'>Login</Link>
-                                    <Link to='/register' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
-                                </div>
+                                {
+                                    user ? (
+                                        <div ref={menuRef} className='relative'>
+                                            <div
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    setOpenProfileMenu(!openProfileMenu);
+                                                }}
+                                                className='cursor-pointer w-14 h-14'>
+                                                <img src={user?.photoURL || defaultUser} className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="" />
+                                                {/* <img src={`${user && user.photoURL}`} className='w-14 h-14 rounded-full object-cover bg-gray-300' alt="" /> */}
+                                            </div>
+                                            <ProfileMenu
+                                                menuRef={menuRef}
+                                                openProfileMenu={openProfileMenu}
+                                                setOpenProfileMenu={setOpenProfileMenu}
+                                            ></ProfileMenu>
+                                        </div>
+                                    ) : (
+                                        <div className='space-x-3 hidden lg:block'>
+                                            <Link to='/login' className='text-dark-09 py-3 px-7 rounded-md border border-dark-03 hover:bg-dark-09 hover:text-white hover:border-dark-09 duration-300 cursor-pointer'>Login</Link>
+                                            <Link to='/register' className='bg-theme-primary text-white py-3 px-7 rounded-md border hover:shadow-btn-inner hover:text-white duration-300 cursor-pointer'>Sign Up</Link>
+                                        </div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
