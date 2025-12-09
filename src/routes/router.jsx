@@ -9,6 +9,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import DashboardOverview from "../pages/Dashboard/DashboardOverview/DashboardOverview";
 import MyTuitions from "../pages/Dashboard/MyTuitions/MyTuitions";
 import PostNewTuition from "../pages/Dashboard/PostNewTuition/PostNewTuition";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -38,7 +39,7 @@ export const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <DashboardLayout></DashboardLayout>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children: [
             {
                 path: 'overview',

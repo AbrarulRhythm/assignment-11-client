@@ -3,7 +3,9 @@ import DashboardTitle from '../../../components/DashboardTitle/DashboardTitle';
 
 const DashboardOverview = () => {
     return (
-        <div>
+        <div className='dashboard'>
+            <title>Dashboard - eTuitionBd</title>
+
             <DashboardTitle
                 title='Dashboard'
             ></DashboardTitle>
