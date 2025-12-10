@@ -35,7 +35,7 @@ const PostNewTuition = () => {
                 toast.error(res.data.error);
             }
 
-            navigate('/dashboard/my-tuitions');
+            navigate('/dashboard/pending-tuitions');
         }
         catch (error) {
             toast.error(error.message);

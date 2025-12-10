@@ -11,7 +11,7 @@ const DashboardLayout = () => {
         <div className={`${sideMenuOpen ? 'lg:ml-[111px]' : 'lg:ml-[270px]'} duration-300 main-wrapper mt-[81px]`}>
 
             {/* Top Nav */}
-            <nav className={`${sideMenuOpen ? 'lg:ml-[111px]' : 'lg:ml-[270px]'} duration-300 fixed top-0 bg-white left-0 right-0`}>
+            <nav className={`${sideMenuOpen ? 'lg:ml-[111px]' : 'lg:ml-[270px]'} duration-300 fixed top-0 bg-white left-0 right-0 z-50`}>
                 <DashboardTopNav
                     sideMenuOpen={sideMenuOpen}
                     setSideMenuOpen={setSideMenuOpen}

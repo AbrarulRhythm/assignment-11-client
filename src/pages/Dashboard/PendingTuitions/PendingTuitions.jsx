@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import DashboardTitle from '../../../components/DashboardTitle/DashboardTitle';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
@@ -8,10 +8,13 @@ import { FiClock, FiEdit } from "react-icons/fi";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { LuEye } from "react-icons/lu";
 import { MdInfoOutline } from 'react-icons/md';
+import DetailsModalTuition from '../../Shared/TuitionModals/DetailsModalTuition';
 
 const PendingTuitions = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const detailsModalRef = useRef();
+    const [selectTuition, setSelectTuition] = useState([]);
 
     const { isLoading, data: tuitions = [] } = useQuery({
         queryKey: ['pendingTuitions', user?.email],
@@ -20,6 +23,12 @@ const PendingTuitions = () => {
             return res.data;
         }
     });
+
+    // Handle Details Tuition
+    const handleDetailsTuition = (tuition) => {
+        setSelectTuition(tuition);
+        detailsModalRef.current.showModal();
+    }
 
     return (
         <div className='dashboard'>
@@ -89,12 +98,14 @@ const PendingTuitions = () => {
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <p className='w-[100px] lg:w-auto'>{moment(tuition.createdAt).format('ll')}</p>
-                                                    <p className='w-[100px] lg:w-auto'>{moment(tuition.createdAt).format('LTS')}</p>
+                                                    <p className='w-[100px]'>{moment(tuition.createdAt).format('ll')}</p>
+                                                    <p className='w-[100px]'>{moment(tuition.createdAt).format('LTS')}</p>
                                                 </td>
                                                 <td>
                                                     <div className='flex items-center gap-2'>
-                                                        <button data-tip="Details" className='tooltip view-btn'><LuEye /></button>
+                                                        <button
+                                                            onClick={() => handleDetailsTuition(tuition)}
+                                                            data-tip="Details" className='tooltip view-btn'><LuEye /></button>
                                                         <button data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
                                                         <button data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
                                                     </div>
@@ -108,6 +119,11 @@ const PendingTuitions = () => {
                     </tbody>
                 </table>
             </div>
+
+            <DetailsModalTuition
+                selectTuition={selectTuition}
+                detailsModalRef={detailsModalRef}
+            ></DetailsModalTuition>
         </div>
     );
 };
