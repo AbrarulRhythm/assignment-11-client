@@ -9,14 +9,16 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { LuEye } from "react-icons/lu";
 import { MdInfoOutline } from 'react-icons/md';
 import DetailsModalTuition from '../../Shared/TuitionModals/DetailsModalTuition';
+import EditModalTuition from '../../Shared/TuitionModals/EditModalTuition';
 
 const PendingTuitions = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const detailsModalRef = useRef();
+    const editModalRef = useRef();
     const [selectTuition, setSelectTuition] = useState([]);
 
-    const { isLoading, data: tuitions = [] } = useQuery({
+    const { isLoading, data: tuitions = [], refetch } = useQuery({
         queryKey: ['pendingTuitions', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/tuitions?email=${user.email}&status=pending`);
@@ -28,6 +30,11 @@ const PendingTuitions = () => {
     const handleDetailsTuition = (tuition) => {
         setSelectTuition(tuition);
         detailsModalRef.current.showModal();
+    }
+
+    const handleEditTuition = (tuition) => {
+        setSelectTuition(tuition);
+        editModalRef.current.showModal();
     }
 
     return (
@@ -106,7 +113,9 @@ const PendingTuitions = () => {
                                                         <button
                                                             onClick={() => handleDetailsTuition(tuition)}
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></button>
-                                                        <button data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
+                                                        <button
+                                                            onClick={() => handleEditTuition(tuition)}
+                                                            data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
                                                         <button data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
                                                     </div>
                                                 </td>
@@ -120,10 +129,18 @@ const PendingTuitions = () => {
                 </table>
             </div>
 
+            {/* Tuition Details Modal */}
             <DetailsModalTuition
                 selectTuition={selectTuition}
                 detailsModalRef={detailsModalRef}
             ></DetailsModalTuition>
+
+            {/* Tuition Update Modal */}
+            <EditModalTuition
+                selectTuition={selectTuition}
+                editModalRef={editModalRef}
+                refetchTuitions={refetch}
+            ></EditModalTuition>
         </div>
     );
 };
