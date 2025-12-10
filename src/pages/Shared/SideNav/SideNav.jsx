@@ -6,8 +6,12 @@ import { MdOutlinePostAdd, MdPendingActions } from 'react-icons/md';
 import { SlBookOpen } from "react-icons/sl";
 import { TbArrowBarToLeft } from 'react-icons/tb';
 import logoIcon from '../../../assets/logo-icon.png';
+import { PiUsersThree } from "react-icons/pi";
+import useRole from '../../../hooks/useRole';
 
 const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
+    const { role } = useRole();
+
     return (
         <div className='relative h-full'>
             <div className='px-6 py-6 duration-300'>
@@ -46,6 +50,16 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                             <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Post New Tuition</span>
                         </NavLink>
                     </li>
+
+                    {/* Admin Only Routes */}
+                    {role === 'admin' && <>
+                        <li>
+                            <NavLink to='/dashboard/user-management' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><PiUsersThree className='text-[24px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>User Management</span>
+                            </NavLink>
+                        </li>
+                    </>}
                 </ul>
             </div>
             <div className='block lg:hidden absolute bottom-0 left-0 right-0 py-5 px-6'>

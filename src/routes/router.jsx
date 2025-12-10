@@ -11,6 +11,8 @@ import MyTuitions from "../pages/Dashboard/MyTuitions/MyTuitions";
 import PostNewTuition from "../pages/Dashboard/PostNewTuition/PostNewTuition";
 import PrivateRoute from "./PrivateRoute";
 import PendingTuitions from "../pages/Dashboard/PendingTuitions/PendingTuitions";
+import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
     {
@@ -57,6 +59,10 @@ export const router = createBrowserRouter([
             {
                 path: 'post-new-tuition',
                 Component: PostNewTuition
+            },
+            {
+                path: 'user-management',
+                element: <AdminRoute><UserManagement></UserManagement></AdminRoute>
             }
         ]
     }

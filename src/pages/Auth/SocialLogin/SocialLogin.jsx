@@ -22,6 +22,7 @@ const SocialLogin = ({ text }) => {
                 displayName: result.user?.displayName,
                 email: result.user?.email,
                 phone: result.user?.phone,
+                photoURL: result.user?.photoURL,
                 role: 'student'
             }
 

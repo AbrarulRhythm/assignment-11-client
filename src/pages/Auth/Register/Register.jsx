@@ -33,6 +33,7 @@ const Register = () => {
                 displayName: data.name,
                 email: data.email,
                 phone: data.phone,
+                photoURL: '/default-user.png',
                 role: data.role
             }
 
