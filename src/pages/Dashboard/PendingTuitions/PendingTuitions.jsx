@@ -10,6 +10,7 @@ import { LuEye } from "react-icons/lu";
 import { MdInfoOutline } from 'react-icons/md';
 import DetailsModalTuition from '../../Shared/TuitionModals/DetailsModalTuition';
 import EditModalTuition from '../../Shared/TuitionModals/EditModalTuition';
+import Swal from 'sweetalert2';
 
 const PendingTuitions = () => {
     const { user } = useAuth();
@@ -32,9 +33,39 @@ const PendingTuitions = () => {
         detailsModalRef.current.showModal();
     }
 
+    // Hnadle Edit Tuition
     const handleEditTuition = (tuition) => {
         setSelectTuition(tuition);
         editModalRef.current.showModal();
+    }
+
+    // Handle Delete Tuition
+    const handleDeleteTuition = (tuitionID) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/tuitions/${tuitionID}/delete`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            refetch();
+
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your tuition has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    });
+            }
+        });
     }
 
     return (
@@ -116,7 +147,9 @@ const PendingTuitions = () => {
                                                         <button
                                                             onClick={() => handleEditTuition(tuition)}
                                                             data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
-                                                        <button data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
+                                                        <button
+                                                            onClick={() => handleDeleteTuition(tuition._id)}
+                                                            data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
                                                     </div>
                                                 </td>
                                             </tr>
