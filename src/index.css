@@ -134,6 +134,32 @@ table th {
   @apply bg-white border-dark-03 text-dark-09 hover:border-dark-09 hover:bg-dark-09 hover:text-white;
 }
 
+.edit-btn {
+  @apply text-[16px] w-[35px] h-[35px] flex justify-center items-center rounded-sm border border-amber-400 text-amber-400 hover:bg-amber-400 hover:text-white duration-300 cursor-pointer;
+}
+
+.delete-btn {
+  @apply text-[15px] w-[35px] h-[35px] flex justify-center items-center rounded-sm border border-red-500 text-red-500 hover:bg-red-500 hover:text-white duration-300 cursor-pointer;
+}
+
+.view-btn {
+  @apply text-[17px] w-[35px] h-[35px] flex justify-center items-center rounded-sm border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white duration-300 cursor-pointer;
+}
+
+/* [ Status BTN ] */
+/*================================================== */
+.status-pending {
+  @apply text-[12px] flex items-center gap-1 text-amber-600 rounded-sm border border-amber-400 bg-amber-100 w-fit py-1 px-2
+}
+
+.status-approved {
+  @apply text-[12px] flex items-center gap-1 text-green-600 rounded-sm border border-green-400 bg-green-100 w-fit py-1 px-2
+}
+
+.status-reject {
+  @apply text-[12px] flex items-center gap-1 text-red-500 rounded-sm border border-red-400 bg-red-100 w-fit py-1 px-2
+}
+
 /* [ Header ] */
 /*================================================== */
 /* Top Header */

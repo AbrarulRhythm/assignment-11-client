@@ -4,6 +4,10 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment/moment';
+import { FiClock, FiEdit } from "react-icons/fi";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { LuEye } from "react-icons/lu";
+import { MdInfoOutline } from 'react-icons/md';
 
 const PendingTuitions = () => {
     const { user } = useAuth();
@@ -56,8 +60,9 @@ const PendingTuitions = () => {
                                 {(!tuitions || tuitions.length === 0) ? (
                                     <tr>
                                         <td colSpan='8' className='py-8 px-14'>
-                                            <div className='text-start md:text-center'>
-                                                No More Tituins
+                                            <div className='text-center'>
+                                                <MdInfoOutline className='text-4xl mx-auto mb-4' />
+                                                <span className='text-base'>No tuitions available at the moment.</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -77,12 +82,23 @@ const PendingTuitions = () => {
                                                 <td>
                                                     <p className='w-[200px] lg:w-auto'>{tuition.schedule}</p>
                                                 </td>
-                                                <td>{tuition.Status}</td>
+                                                <td>
+                                                    <span className='status-pending'>
+                                                        <FiClock className='text-sm' />
+                                                        {tuition.status}
+                                                    </span>
+                                                </td>
                                                 <td>
                                                     <p className='w-[100px] lg:w-auto'>{moment(tuition.createdAt).format('ll')}</p>
                                                     <p className='w-[100px] lg:w-auto'>{moment(tuition.createdAt).format('LTS')}</p>
                                                 </td>
-                                                <td>---</td>
+                                                <td>
+                                                    <div className='flex items-center gap-2'>
+                                                        <button data-tip="Details" className='tooltip view-btn'><LuEye /></button>
+                                                        <button data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
+                                                        <button data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         )
                                     })
