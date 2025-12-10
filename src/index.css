@@ -116,6 +116,10 @@ p {
   @apply absolute h-px bg-red-200 top-[50%] -translate-[50%];
 } */
 
+table th {
+  @apply text-dark-08;
+}
+
 /* [ Button ] */
 /*================================================== */
 .button {

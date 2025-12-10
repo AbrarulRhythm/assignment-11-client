@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../../../components/Logo/Logo';
 import { NavLink } from 'react-router';
 import { RxDashboard } from "react-icons/rx";
-import { MdOutlinePostAdd } from 'react-icons/md';
+import { MdOutlinePostAdd, MdPendingActions } from 'react-icons/md';
 import { SlBookOpen } from "react-icons/sl";
 import { TbArrowBarToLeft } from 'react-icons/tb';
 import logoIcon from '../../../assets/logo-icon.png';
@@ -32,6 +32,12 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                         <NavLink to='/dashboard/my-tuitions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
                             <div><SlBookOpen className='text-[18px]' /></div>
                             <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>My Tuitions</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/pending-tuitions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                            <div><MdPendingActions className='text-[22px]' /></div>
+                            <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Pending Tuitions</span>
                         </NavLink>
                     </li>
                     <li>

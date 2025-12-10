@@ -10,6 +10,7 @@ import DashboardOverview from "../pages/Dashboard/DashboardOverview/DashboardOve
 import MyTuitions from "../pages/Dashboard/MyTuitions/MyTuitions";
 import PostNewTuition from "../pages/Dashboard/PostNewTuition/PostNewTuition";
 import PrivateRoute from "./PrivateRoute";
+import PendingTuitions from "../pages/Dashboard/PendingTuitions/PendingTuitions";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path: 'my-tuitions',
                 Component: MyTuitions
+            },
+            {
+                path: 'pending-tuitions',
+                Component: PendingTuitions
             },
             {
                 path: 'post-new-tuition',
