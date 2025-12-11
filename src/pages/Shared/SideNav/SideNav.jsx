@@ -51,12 +51,6 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                             <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Post New Tuition</span>
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to='/dashboard/my-profile' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
-                            <div><LuUser className='text-[24px]' /></div>
-                            <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>My Profile</span>
-                        </NavLink>
-                    </li>
 
                     {/* Admin Only Routes */}
                     {role === 'admin' && <>

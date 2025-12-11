@@ -7,10 +7,12 @@ import defaultUser from '../../assets/default-user.png';
 import { IoSettingsOutline } from "react-icons/io5";
 import { toast } from 'react-toastify';
 import useRole from '../../hooks/useRole';
+import useUserID from '../../hooks/useUserID';
 
 const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
     const { user, userSignOut } = useAuth();
     const { isLoading, role } = useRole();
+    const { id } = useUserID();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -61,7 +63,7 @@ const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/dashboard/my-profile' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
+                    <Link to={`/dashboard/user-profile/${id}`} className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
                         <LuUserRound className='text-lg' /> My Profile
                     </Link>
                 </li>
