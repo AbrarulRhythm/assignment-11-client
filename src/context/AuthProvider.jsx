@@ -8,6 +8,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isTokenSet, setIsTokenSet] = useState(false);
 
     // Create User
     const createUser = (email, password) => {
@@ -45,21 +46,34 @@ const AuthProvider = ({ children }) => {
             setUser(currentUser);
             const loggedUser = { email: currentUser?.email };
 
-            if (currentUser) {
-                fetch('http://localhost:3000/getToken', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(loggedUser)
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        localStorage.setItem('token', data.token);
-                    });
+            if (!currentUser) {
+                localStorage.removeItem('token');
+                setIsTokenSet(true);
+                setLoading(false);
+                return;
             }
-            setLoading(false);
+
+            fetch('http://localhost:3000/getToken', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(loggedUser)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    localStorage.setItem('token', data.token);
+
+                    setIsTokenSet(true);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('Failed to get token:', error);
+                    setIsTokenSet(true);
+                    setLoading(false);
+                });
         });
+
         return () => {
             unsubscribe();
         }
@@ -68,6 +82,7 @@ const AuthProvider = ({ children }) => {
     const authInfo = {
         user,
         loading,
+        isTokenSet,
         createUser,
         updateUserProfile,
         googleSignIn,

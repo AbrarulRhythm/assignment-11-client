@@ -67,7 +67,7 @@ export const router = createBrowserRouter([
                 Component: UserProfile
             },
             {
-                path: 'profile-settings',
+                path: 'profile-settings/:id',
                 Component: ProfileSettings
             },
             {

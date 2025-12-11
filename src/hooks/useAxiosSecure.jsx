@@ -10,13 +10,21 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-    const { userSignOut } = useAuth();
+    const { loading, isTokenSet, userSignOut } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (loading || !isTokenSet) {
+            return;
+        }
+
         // Request Interceptor
         const reqInterceprot = axiosSecure.interceptors.request.use(config => {
-            config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+            const token = localStorage.getItem('token');
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+            // config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
             return config;
         });
 
@@ -48,7 +56,7 @@ const useAxiosSecure = () => {
             axiosSecure.interceptors.request.eject(reqInterceprot);
             axiosSecure.interceptors.response.eject(resInterceptor);
         }
-    }, [userSignOut, navigate]);
+    }, [userSignOut, navigate, loading, isTokenSet]);
 
     return axiosSecure;
 };
