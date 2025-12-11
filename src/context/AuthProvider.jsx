@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { auth } from '../firebase/firebase.config';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import useAxios from '../hooks/useAxios';
 
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
+    const axiosInstance = useAxios();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isTokenSet, setIsTokenSet] = useState(false);
@@ -40,44 +42,49 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
+    // Set JWT Toke
+    const fetchAndSetToken = useCallback(async (currentUser) => {
+        if (!currentUser) {
+            localStorage.removeItem('token');
+            setIsTokenSet(true);
+            setLoading(false);
+            return;
+        }
+
+        const loggedUser = { email: currentUser.email };
+
+        try {
+            const res = await axiosInstance.post('/getToken', loggedUser);
+            const data = res.data;
+
+            if (data.token) {
+                localStorage.setItem('token', data.token)
+            }
+            else {
+                localStorage.removeItem('token');
+            }
+        }
+        catch (error) {
+            console.error("Token fetch failed:", error);
+            localStorage.removeItem('token');
+        }
+
+        setIsTokenSet(true);
+        setLoading(false);
+    }, [setIsTokenSet, setLoading, axiosInstance]);
+
     // observe user state
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            const loggedUser = { email: currentUser?.email };
 
-            if (!currentUser) {
-                localStorage.removeItem('token');
-                setIsTokenSet(true);
-                setLoading(false);
-                return;
-            }
-
-            fetch('http://localhost:3000/getToken', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(loggedUser)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    localStorage.setItem('token', data.token);
-
-                    setIsTokenSet(true);
-                    setLoading(false);
-                })
-                .catch(error => {
-                    console.error('Failed to get token:', error);
-                    setIsTokenSet(true);
-                    setLoading(false);
-                });
+            fetchAndSetToken(currentUser);
         });
 
         return () => {
             unsubscribe();
         }
-    }, []);
+    }, [setUser, fetchAndSetToken]);
 
     const authInfo = {
         user,
@@ -87,6 +94,7 @@ const AuthProvider = ({ children }) => {
         updateUserProfile,
         googleSignIn,
         userSignIn,
+        getNewCustomTokenFromServer: fetchAndSetToken,
         userSignOut,
     }
 

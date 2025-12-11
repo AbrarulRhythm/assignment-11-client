@@ -10,11 +10,12 @@ import useAuth from '../../../hooks/useAuth';
 
 const ProfileSettings = () => {
     const { id } = useParams();
-    const { updateUserProfile } = useAuth();
+    const { user: authUser, updateUserProfile, getNewCustomTokenFromServer, isTokenSet } = useAuth();
     const axiosSecure = useAxiosSecure();
 
     const { isLoading, data: user = [], refetch: userDataRefetch } = useQuery({
-        queryKey: ['user'],
+        queryKey: ['user', id],
+        enabled: isTokenSet,
         queryFn: async () => {
             const res = await axiosSecure.get(`/users/${id}`);
             return res.data;
@@ -36,6 +37,8 @@ const ProfileSettings = () => {
 
             // Update to the Firebase Profile
             await updateUserProfile({ displayName: data.displayName });
+
+            await getNewCustomTokenFromServer(authUser);
 
             SweetAlert({
                 type: 'success',
