@@ -8,6 +8,7 @@ import { TbArrowBarToLeft } from 'react-icons/tb';
 import logoIcon from '../../../assets/logo-icon.png';
 import { PiUsersThree } from "react-icons/pi";
 import useRole from '../../../hooks/useRole';
+import { LuUser } from 'react-icons/lu';
 
 const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
     const { role } = useRole();
@@ -48,6 +49,12 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                         <NavLink to='/dashboard/post-new-tuition' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
                             <div><MdOutlinePostAdd className='text-[24px]' /></div>
                             <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Post New Tuition</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboard/my-profile' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                            <div><LuUser className='text-[24px]' /></div>
+                            <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>My Profile</span>
                         </NavLink>
                     </li>
 

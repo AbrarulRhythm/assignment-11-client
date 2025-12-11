@@ -13,6 +13,8 @@ import PrivateRoute from "./PrivateRoute";
 import PendingTuitions from "../pages/Dashboard/PendingTuitions/PendingTuitions";
 import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
+import MyProfile from "../pages/Dashboard/MyProfile/MyProfile";
+import UserProfile from "../pages/Dashboard/UserProfile/UserProfile";
 
 export const router = createBrowserRouter([
     {
@@ -61,8 +63,16 @@ export const router = createBrowserRouter([
                 Component: PostNewTuition
             },
             {
+                path: 'my-profile',
+                Component: MyProfile
+            },
+            {
                 path: 'user-management',
                 element: <AdminRoute><UserManagement></UserManagement></AdminRoute>
+            },
+            {
+                path: 'user-profile/:id',
+                element: <AdminRoute><UserProfile></UserProfile></AdminRoute>
             }
         ]
     }

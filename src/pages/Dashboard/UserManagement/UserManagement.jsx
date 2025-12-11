@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { FaRegTrashAlt, FaUserShield } from 'react-icons/fa';
 import { FiEdit } from 'react-icons/fi';
 import { LuEye, LuShieldOff } from 'react-icons/lu';
+import { Link } from 'react-router';
 
 const UserManagement = () => {
     const axiosSecure = useAxiosSecure();
@@ -49,64 +50,6 @@ const UserManagement = () => {
         });
     }
 
-    // Update User Role
-    const updateUserRole = (user, role) => {
-        const roleInfo = { role };
-
-        // Conditional confirmation messages
-        const actionText =
-            role === "admin"
-                ? "You want to approve this rider and make them an Admin!"
-                : "You want to remove Admin access from this user!";
-
-        const confirmButtonText =
-            role === "admin"
-                ? "Yes, approve!"
-                : "Yes, remove!";
-
-        Swal.fire({
-            title: "Are you sure?",
-            text: actionText,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: confirmButtonText
-        }).then((result) => {
-            if (result.isConfirmed) {
-                axiosSecure.patch(`/users/${user._id}/role`, roleInfo)
-                    .then(res => {
-                        if (res.data.modifiedCount) {
-                            // refresh the data in the ui
-                            refetch();
-
-                            const titleMessage = role === 'admin'
-                                ? `${user.displayName} marked as an Admin`
-                                : `${user.displayName} is no longer an Admin`;
-
-                            Swal.fire({
-                                position: "center",
-                                icon: "success",
-                                title: titleMessage,
-                                showConfirmButton: false,
-                                timer: 2500
-                            });
-                        }
-                    })
-            }
-        });
-    }
-
-    // Handle Make Admin
-    const handleMakeAdmin = (user) => {
-        updateUserRole(user, 'admin');
-    }
-
-    // Handle Remove Admin
-    const handleRemoveAdmin = (user) => {
-        updateUserRole(user, 'student');
-    }
-
     return (
         <div className='dashboard'>
             <title>User Management</title>
@@ -126,7 +69,6 @@ const UserManagement = () => {
                             <th>Email</th>
                             <th>Role</th>
                             <th>Created At</th>
-                            <th>Admin Actions</th>
                             <th>Other Actions</th>
                         </tr>
                     </thead>
@@ -174,18 +116,9 @@ const UserManagement = () => {
                                                     <p className='w-[100px]'>{moment(user.createdAt).format('LTS')}</p>
                                                 </td>
                                                 <td>
-                                                    {user.role === 'admin' ?
-                                                        <button
-                                                            onClick={() => handleRemoveAdmin(user)}
-                                                            data-tip="Remove Admin" className='tooltip text-sm font-medium py-2 px-2 rounded-sm border border-red-600 text-red-600 hover:bg-red-600 hover:text-white duration-300 cursor-pointer'><LuShieldOff className='text-lg' /></button>
-                                                        : <button
-                                                            onClick={() => handleMakeAdmin(user)}
-                                                            data-tip="Make Admin" className='tooltip text-sm font-medium py-2 px-2 rounded-sm border border-green-600 text-green-600 hover:bg-green-600 hover:text-white duration-300 cursor-pointer'><FaUserShield className='text-lg' /></button>}
-                                                </td>
-                                                <td>
                                                     <div className='flex items-center gap-2'>
-                                                        <button
-                                                            data-tip="Details" className='tooltip view-btn'><LuEye /></button>
+                                                        <Link to={`/dashboard/user-profile/${user._id}`}
+                                                            data-tip="Details" className='tooltip view-btn'><LuEye /></Link>
                                                         <button
                                                             data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
                                                         <button

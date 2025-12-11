@@ -45,7 +45,7 @@ const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
             <div className='pt-8 mb-6'>
                 <img src={user?.photoURL || defaultUser} className='w-11 h-11 object-cover rounded-full mx-auto mb-2' alt='User Profile Pic' />
                 <h5 className='text-dark-12 text-sm font-medium text-center'>{user && user.displayName}</h5>
-                <span className='text-center block text-sm'>
+                <span className='text-center block text-[12px]'>
                     {/* Loading State */}
                     {isLoading ? (
                         <span className="skeleton skeleton-text">User Role</span>
@@ -61,7 +61,7 @@ const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to='/' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
+                    <Link to='/dashboard/my-profile' className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
                         <LuUserRound className='text-lg' /> My Profile
                     </Link>
                 </li>
