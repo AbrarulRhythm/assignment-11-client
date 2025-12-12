@@ -8,10 +8,13 @@ import { toast } from 'react-toastify';
 import SweetAlert from '../../../components/SweetAlert/SweetAlert';
 import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
+import Swal from 'sweetalert2';
+import useRole from '../../../hooks/useRole';
 
 const ProfileSettings = () => {
     const { id } = useParams();
     const { user: authUser, updateUserProfile, getNewCustomTokenFromServer, isTokenSet } = useAuth();
+    const { role } = useRole();
     const axiosSecure = useAxiosSecure();
     const profilePicUpdateRef = useRef();
 
@@ -101,6 +104,77 @@ const ProfileSettings = () => {
         profilePicUpdateRef.current.showModal();
     }
 
+    // =================================== :: Update User Role :: ===================================
+    // Update user role
+    const updateUserRole = (user, role) => {
+        const roleInfo = { role };
+
+        // Conditional confirmation messages
+        const actionText =
+            role === 'admin'
+                ? 'Approve this user as Admin?'
+                : role === 'tutor'
+                    ? 'Approve this user as Tutor?'
+                    : 'Approve this user as Student?'
+
+        const confirmButtonText =
+            role === "admin"
+                ? "Yes, approve!"
+                : "Yes, remove!";
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: actionText,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: confirmButtonText
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/users/${id}/update/role`, roleInfo)
+                    .then(res => {
+                        if (res.data.modifiedCount) {
+                            // refresh the data in the ui
+                            userDataRefetch();
+
+                            const titleMessage = role === 'admin'
+                                ? `${user.displayName} marked as an Admin`
+                                : role === 'tutor'
+                                    ? `${user.displayName} marked as an Tutor`
+                                    : `${user.displayName} marked as an Student`;
+
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: titleMessage,
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                        }
+                    })
+            }
+        });
+    }
+
+    // Handle Make Admin
+    const handleMakeAdmin = (user) => {
+        updateUserRole(user, 'admin');
+    }
+
+    // Handle Make Tutor
+    const handleMakeTutor = (user) => {
+        updateUserRole(user, 'tutor');
+    }
+
+    // Handle Make Student
+    const handleMakeStudent = (user) => {
+        updateUserRole(user, 'student');
+    }
+
+    // Display user role
+    const displayUserRole = user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : ''
+
     return (
         <div>
             <title>Profile Settings | eTuitionBd - Admin</title>
@@ -137,6 +211,19 @@ const ProfileSettings = () => {
                                                 <button onClick={openProfilePicModal} className='flex items-center text-sm gap-1.5 mt-4 bg-gray-100 w-full py-3 px-4 rounded-md cursor-pointer hover:bg-gray-200 duration-300'>
                                                     <MdPhotoCamera className='text-lg' /> Change Profile Picture
                                                 </button>
+                                                {role === 'admin' && (
+                                                    <div className='mt-4'>
+                                                        <span className='text-sm block mb-2'>Change user role</span>
+                                                        <div className="dropdown">
+                                                            <div tabIndex={0} role="button" className="btn m-1">{displayUserRole}</div>
+                                                            <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                                                {user.role !== 'admin' && <li><button onClick={() => handleMakeAdmin(user)}>Admin</button></li>}
+                                                                {user.role !== 'tutor' && <li><button onClick={() => handleMakeTutor(user)}>Tutor</button></li>}
+                                                                {user.role !== 'student' && <li><button onClick={() => handleMakeStudent(user)}>Student</button></li>}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                         <div className='w-full md:w-7/12 lg:w-8/12 px-3'>
@@ -195,6 +282,7 @@ const ProfileSettings = () => {
                 )}
             </div>
 
+            {/* Profile Picture update modal */}
             <dialog ref={profilePicUpdateRef} className="modal">
                 <div className="modal-box">
                     <h3 className="font-semibold text-lg">Change Your Photo</h3>
