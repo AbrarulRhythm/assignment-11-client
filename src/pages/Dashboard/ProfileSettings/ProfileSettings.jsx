@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams } from 'react-router';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import { MdInfoOutline } from 'react-icons/md';
+import { MdCameraAlt, MdInfoOutline, MdPhotoCamera } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import SweetAlert from '../../../components/SweetAlert/SweetAlert';
 import useAuth from '../../../hooks/useAuth';
+import axios from 'axios';
 
 const ProfileSettings = () => {
     const { id } = useParams();
     const { user: authUser, updateUserProfile, getNewCustomTokenFromServer, isTokenSet } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const profilePicUpdateRef = useRef();
 
     const { isLoading, data: user = [], refetch: userDataRefetch } = useQuery({
         queryKey: ['user', id],
@@ -27,6 +29,13 @@ const ProfileSettings = () => {
         handleSubmit,
         reset,
         formState: { errors, isSubmitting }
+    } = useForm();
+
+    // useForm for update profile picture
+    const {
+        register: profile,
+        handleSubmit: handleSubmitProfile,
+        formState: { errors: profilePicErrors, isSubmitting: profilePicSubmitting }
     } = useForm();
 
     // Handle Update Profile
@@ -50,6 +59,46 @@ const ProfileSettings = () => {
         catch (error) {
             toast.error(error.message);
         }
+    }
+
+    // Handle Update Profile Pic
+    const handleUpdateProfilePic = async (data) => {
+
+        const profileImage = data.profilePic[0];
+
+        try {
+            // Store the image and get the photo url
+            const formData = new FormData();
+            formData.append('image', profileImage)
+            const imageAPI_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
+
+            const imageRes = await axios.post(imageAPI_URL, formData);
+            const photoURL = imageRes.data.data.url; // Image live url
+
+            // Update profile to database
+            await axiosSecure.patch(`/users/${id}/update`, { photoURL });
+
+            // Update profile to firebase
+            await updateUserProfile({ photoURL: photoURL });
+
+            await getNewCustomTokenFromServer(authUser);
+
+            SweetAlert({
+                type: 'success',
+                message: 'Profile updated successfully.',
+            });
+            profilePicUpdateRef.current.close(); // Close profile pic Modal
+            reset();
+            userDataRefetch();
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    // Handle Open Profile Pic Modal
+    const openProfilePicModal = () => {
+        profilePicUpdateRef.current.showModal();
     }
 
     return (
@@ -82,9 +131,12 @@ const ProfileSettings = () => {
                                     <div className='flex flex-wrap -mx-3'>
                                         <div className='w-full md:w-5/12 lg:w-4/12 px-3 mb-4 mb-lg-0'>
                                             <div className='bg-white rounded-md p-6'>
-                                                <div className='rounded-full border-4 border-theme-primary w-[130px] h-[130px] overflow-hidden mx-auto relative'>
-                                                    <img src={user?.photoURL} className='w-[130px] h-[130px] object-cover rounded-full' alt="" />
+                                                <div className='rounded-full overflow-hidden relative w-fit mx-auto'>
+                                                    <img src={user?.photoURL} className='w-[130px] h-[130px] object-cover rounded-full text-center border-4 m-auto border-theme-primary' alt="profile pic" />
                                                 </div>
+                                                <button onClick={openProfilePicModal} className='flex items-center text-sm gap-1.5 mt-4 bg-gray-100 w-full py-3 px-4 rounded-md cursor-pointer hover:bg-gray-200 duration-300'>
+                                                    <MdPhotoCamera className='text-lg' /> Change Profile Picture
+                                                </button>
                                             </div>
                                         </div>
                                         <div className='w-full md:w-7/12 lg:w-8/12 px-3'>
@@ -142,6 +194,29 @@ const ProfileSettings = () => {
                     </>
                 )}
             </div>
+
+            <dialog ref={profilePicUpdateRef} className="modal">
+                <div className="modal-box">
+                    <h3 className="font-semibold text-lg">Change Your Photo</h3>
+                    <form onSubmit={(e) => handleSubmitProfile(handleUpdateProfilePic)(e)} className='mt-4'>
+                        <input {...profile('profilePic', {
+                            required: 'Please choose your photo',
+                        })} type="file" className={`${profilePicErrors.profilePic ? 'form-field-error form-field' : 'form-field'} file-input w-full h-auto`} />
+                        <span className={`${profilePicErrors.profilePic ? 'block mt-1' : 'hidden'} text-sm text-red-500`}>{profilePicErrors.profilePic && profilePicErrors.profilePic.message}</span>
+                        <button className="btn btn-primary mt-3" disabled={profilePicSubmitting}>
+                            {profilePicSubmitting ? <><span className='loading loading-spinner loading-sm mr-1.5'></span> Save</> : 'Save'}
+                        </button>
+                    </form>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            {/* if there is a button in form, it will close the modal */}
+                            <div className='space-x-1.5'>
+                                <button className="btn">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 };

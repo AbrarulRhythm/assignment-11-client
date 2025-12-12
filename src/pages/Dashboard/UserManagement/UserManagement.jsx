@@ -119,8 +119,8 @@ const UserManagement = () => {
                                                     <div className='flex items-center gap-2'>
                                                         <Link to={`/dashboard/user-profile/${user._id}`}
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></Link>
-                                                        <button
-                                                            data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
+                                                        <Link to={`/dashboard/profile-settings/${user._id}`}
+                                                            data-tip="Edit" className='tooltip edit-btn'><FiEdit /></Link>
                                                         <button
                                                             onClick={() => handleDeleteUser(user._id)}
                                                             data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
