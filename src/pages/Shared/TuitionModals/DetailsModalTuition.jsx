@@ -29,7 +29,7 @@ const DetailsModalTuition = ({ detailsModalRef, selectTuition }) => {
                     <li><span className='text-dark-08 font-medium'>Status:</span> <span className={`
                     ${selectTuition.status === 'approved' ? 'text-green-500' : selectTuition.status === 'pending' ? 'text-amber-500' : 'text-red-500'}`}>{(selectTuition?.status || 'unknown').toUpperCase()}</span></li>
                 </ul>
-                <span className='text-sm py-4 block text-dark-09 font-medium'>Your Info:</span>
+                <span className='text-sm py-4 block text-dark-09 font-medium'>Personal Info:</span>
                 <ul className='space-y-2'>
                     <li><span className='text-dark-08 font-medium'>Name:</span> {selectTuition.name}</li>
                     <li><span className='text-dark-08 font-medium'>Email:</span> {selectTuition.email}</li>

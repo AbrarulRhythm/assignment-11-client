@@ -98,11 +98,6 @@ const UserProfile = () => {
                                                     <li>
                                                         <span className='text-dark-08 font-medium'>Email:</span> {user.email}
                                                     </li>
-                                                    {user?.location && (
-                                                        <li>
-                                                            <span className='text-dark-08 font-medium'>Email:</span> {user.emil}
-                                                        </li>
-                                                    )}
                                                     <li>
                                                         <span className='text-dark-08 font-medium'>Joining Date:</span> {moment(user.createdAt).format('ll')}
                                                     </li>

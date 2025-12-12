@@ -15,6 +15,7 @@ import UserManagement from "../pages/Dashboard/UserManagement/UserManagement";
 import AdminRoute from "./AdminRoute";
 import UserProfile from "../pages/Dashboard/UserProfile/UserProfile";
 import ProfileSettings from "../pages/Dashboard/ProfileSettings/ProfileSettings";
+import TuitionManagement from "../pages/Dashboard/TuitionManagement/TuitionManagement";
 
 export const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
             {
                 path: 'user-management',
                 element: <AdminRoute><UserManagement></UserManagement></AdminRoute>
+            },
+            {
+                path: 'tuition-management',
+                element: <AdminRoute><TuitionManagement></TuitionManagement></AdminRoute>
             }
         ]
     }

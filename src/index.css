@@ -146,6 +146,14 @@ table th {
   @apply text-[17px] w-[35px] h-[35px] flex justify-center items-center rounded-sm border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white duration-300 cursor-pointer;
 }
 
+.approve-btn {
+  @apply text-[17px] w-[35px] h-[35px] flex justify-center items-center rounded-sm border border-green-500 text-green-500 hover:bg-green-500 hover:text-white duration-300 cursor-pointer;
+}
+
+.reject-btn {
+  @apply text-[17px] w-[35px] h-[35px] flex justify-center items-center rounded-sm border border-red-500 text-red-500 hover:bg-red-500 hover:text-white duration-300 cursor-pointer;
+}
+
 /* [ Status BTN ] */
 /*================================================== */
 .status-pending {
