@@ -10,7 +10,7 @@ import { MdInfoOutline } from 'react-icons/md';
 import DetailsModalTuition from '../../Shared/TuitionModals/DetailsModalTuition';
 import EditModalTuition from '../../Shared/TuitionModals/EditModalTuition';
 import Swal from 'sweetalert2';
-import { IoCheckmarkSharp } from "react-icons/io5";
+import { IoCheckmarkSharp, IoSearchSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 
 const TuitionManagement = () => {
@@ -18,11 +18,12 @@ const TuitionManagement = () => {
     const detailsModalRef = useRef();
     const editModalRef = useRef();
     const [selectTuition, setSelectTuition] = useState([]);
+    const [searchText, setSearchText] = useState('');
 
     const { isLoading, data: tuitions = [], refetch } = useQuery({
-        queryKey: ['uitions'],
+        queryKey: ['tuitions', searchText],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/tuitions`);
+            const res = await axiosSecure.get(`/tuitions?searchText=${searchText}`);
             return res.data;
         }
     });
@@ -133,6 +134,20 @@ const TuitionManagement = () => {
             <DashboardTitle
                 title='Tuition Management'
             ></DashboardTitle>
+
+            <div className='flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6'>
+                <h3 className='text-xl font-semibold text-dark-07'>Total Tuitions: {tuitions.length}</h3>
+                <div className='relative w-full md:w-auto'>
+                    <div className='flex'>
+                        <div className='h-[50px] w-[50px] bg-white text-lg flex border-l border-t border-b border-dark-03 rounded-l-md items-center justify-center'>
+                            <IoSearchSharp />
+                        </div>
+                        <input
+                            onChange={(e) => setSearchText(e.target.value)}
+                            type="text" className='w-full md:w-auto bg-white border border-dark-03 rounded-r-md py-3 pl-4 pr-5 focus:outline-0 focus:border-theme-primary h-[50px]' placeholder='Search...' />
+                    </div>
+                </div>
+            </div>
 
             <div className="overflow-x-auto bg-white border border-dark-03 rounded-xl">
                 <table className="table table-zebra">
