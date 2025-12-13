@@ -19,11 +19,12 @@ const TuitionManagement = () => {
     const editModalRef = useRef();
     const [selectTuition, setSelectTuition] = useState([]);
     const [searchText, setSearchText] = useState('');
+    const limit = 0;
 
     const { isLoading, data: tuitions = [], refetch } = useQuery({
         queryKey: ['tuitions', searchText],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/tuitions?searchText=${searchText}`);
+            const res = await axiosSecure.get(`/tuitions?searchText=${searchText}&limit=${limit}`);
             return res.data;
         }
     });

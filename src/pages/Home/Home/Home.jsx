@@ -2,6 +2,7 @@ import React from 'react';
 import HeroSlider from '../HeroSlider/HeroSlider';
 import Brands from '../Brands/Brands';
 import AboutUs from '../AboutUs/AboutUs';
+import LatestTuition from '../LatestTuition/LatestTuition';
 
 const Home = () => {
     return (
@@ -16,6 +17,10 @@ const Home = () => {
 
             <section className='about-us pt-16 pb-4 md:pt-[72px] md:pb-6 lg:pt-[104px] lg:pb-14'>
                 <AboutUs></AboutUs>
+            </section>
+
+            <section className='pt-10 pb-4 md:pt-14 md:pb-8 lg:pt-20 lg:pb-14 bg-content-bg'>
+                <LatestTuition></LatestTuition>
             </section>
         </>
     );
