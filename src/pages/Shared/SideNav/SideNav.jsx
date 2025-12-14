@@ -8,7 +8,8 @@ import { TbArrowBarToLeft } from 'react-icons/tb';
 import logoIcon from '../../../assets/logo-icon.png';
 import { PiUsersThree } from "react-icons/pi";
 import useRole from '../../../hooks/useRole';
-import { LuUser } from 'react-icons/lu';
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+
 
 const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
     const { role } = useRole();
@@ -51,6 +52,16 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                             <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Post New Tuition</span>
                         </NavLink>
                     </li>
+
+                    {/* Student Only Routes */}
+                    {role === 'student' && <>
+                        <li>
+                            <NavLink to='/dashboard/applied-tutors' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><LiaChalkboardTeacherSolid className='text-[24px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Applied Tutors</span>
+                            </NavLink>
+                        </li>
+                    </>}
 
                     {/* Admin Only Routes */}
                     {role === 'admin' && <>

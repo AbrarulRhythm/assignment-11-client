@@ -18,6 +18,8 @@ import ProfileSettings from "../pages/Dashboard/ProfileSettings/ProfileSettings"
 import TuitionManagement from "../pages/Dashboard/TuitionManagement/TuitionManagement";
 import AllTuitions from "../pages/AllTuitions/AllTuitions";
 import TuitionDetails from "../pages/TuitionDetails/TuitionDetails";
+import AppliedTutors from "../pages/Dashboard/AppliedTutors/AppliedTutors";
+import StudentRoute from "./StudentRoute";
 
 export const router = createBrowserRouter([
     {
@@ -80,6 +82,10 @@ export const router = createBrowserRouter([
             {
                 path: 'profile-settings/:id',
                 Component: ProfileSettings
+            },
+            {
+                path: 'applied-tutors',
+                element: <StudentRoute><AppliedTutors></AppliedTutors></StudentRoute>
             },
             {
                 path: 'user-management',

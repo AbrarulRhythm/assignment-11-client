@@ -62,7 +62,8 @@ const TuitionDetails = () => {
             ...tutorApply,
             tutorId: currentUserId.id,
             tuitionId: tuitionId,
-            subjectName: tutionDetails.subject
+            subjectName: tutionDetails.subject,
+            studentEmail: tutionDetails.email
         }
 
         try {
