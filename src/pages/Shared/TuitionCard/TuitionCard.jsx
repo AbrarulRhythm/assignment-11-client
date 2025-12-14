@@ -52,12 +52,11 @@ const TuitionCard = ({ tuition }) => {
                             <li className='text-sm flex items-center gap-2'><img src={time} alt="tk" /> {schedule}</li>
                         </ul>
                     </div>
-
                 </div>
 
                 <div className='flex items-center justify-between border-t border-dark-03 text-sm'>
                     <button className='flex items-center justify-center p-4 gap-1 cursor-pointer hover:bg-dark-02 w-[50%] border-r border-dark-03 duration-150'><TiBookmark className='text-lg' /> Book Mark</button>
-                    <Link to='/' className='p-4 cursor-pointer hover:bg-dark-02 w-[50%] duration-150 text-center'>View Details</Link>
+                    <Link to={`/tuitions/${_id}`} className='p-4 cursor-pointer hover:bg-dark-02 w-[50%] duration-150 text-center'>View Details</Link>
                 </div>
             </div>
         </div>

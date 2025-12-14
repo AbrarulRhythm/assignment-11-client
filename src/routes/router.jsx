@@ -16,6 +16,8 @@ import AdminRoute from "./AdminRoute";
 import UserProfile from "../pages/Dashboard/UserProfile/UserProfile";
 import ProfileSettings from "../pages/Dashboard/ProfileSettings/ProfileSettings";
 import TuitionManagement from "../pages/Dashboard/TuitionManagement/TuitionManagement";
+import AllTuitions from "../pages/AllTuitions/AllTuitions";
+import TuitionDetails from "../pages/TuitionDetails/TuitionDetails";
 
 export const router = createBrowserRouter([
     {
@@ -26,6 +28,14 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home
+            },
+            {
+                path: 'tuitions',
+                Component: AllTuitions
+            },
+            {
+                path: 'tuitions/:id',
+                Component: TuitionDetails
             }
         ]
     },

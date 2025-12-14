@@ -27,8 +27,8 @@ const LatestTuition = () => {
             <div className='flex flex-wrap -mx-3'>
                 {/* Loading State */}
                 {isLoading ? (
-                    <div className='text-start md:text-center'>
-                        <span className="loading loading-bars loading-lg"></span>
+                    <div className='text-center mx-auto'>
+                        <span className="loading loading-bars loading-xl"></span>
                     </div>
                 ) : (
                     <>
