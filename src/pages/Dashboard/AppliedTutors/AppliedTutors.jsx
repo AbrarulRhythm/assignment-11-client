@@ -145,7 +145,7 @@ const AppliedTutors = () => {
                         <ul className='space-y-4'>
                             <li>Subject : <span className='text-dark-08 font-medium'>{selectedApplication.subjectName}</span></li>
                             <li>Tutor Name : <span className='text-dark-08 font-medium'>{selectedApplication.tutorName}</span></li>
-                            <li>Tutor Name : <span className='text-dark-08 font-medium'>{selectedApplication.tutorName}</span></li>
+                            <li>Tutor Email : <span className='text-dark-08 font-medium'>{selectedApplication.tutorEmail}</span></li>
                             <li>Experience : <span className='text-dark-08 font-medium'>{selectedApplication.tutorExperience}</span></li>
                             <li>Qualifications : <span className='text-dark-08 font-medium'>{selectedApplication.tutorQualifications}</span></li>
                             <li>Expected Salary : <span className='text-dark-08 font-medium'>{selectedApplication.tutorSalary}</span></li>

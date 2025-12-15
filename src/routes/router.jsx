@@ -20,6 +20,8 @@ import AllTuitions from "../pages/AllTuitions/AllTuitions";
 import TuitionDetails from "../pages/TuitionDetails/TuitionDetails";
 import AppliedTutors from "../pages/Dashboard/AppliedTutors/AppliedTutors";
 import StudentRoute from "./StudentRoute";
+import MyApplications from "../pages/Dashboard/MyApplications/MyApplications";
+import TutorRoute from "./TutorRoute";
 
 export const router = createBrowserRouter([
     {
@@ -64,18 +66,6 @@ export const router = createBrowserRouter([
                 Component: DashboardOverview
             },
             {
-                path: 'my-tuitions',
-                Component: MyTuitions
-            },
-            {
-                path: 'pending-tuitions',
-                Component: PendingTuitions
-            },
-            {
-                path: 'post-new-tuition',
-                Component: PostNewTuition
-            },
-            {
                 path: 'user-profile/:id',
                 Component: UserProfile
             },
@@ -83,10 +73,32 @@ export const router = createBrowserRouter([
                 path: 'profile-settings/:id',
                 Component: ProfileSettings
             },
+
+            // Student Route
+            {
+                path: 'my-tuitions',
+                element: <StudentRoute><MyTuitions></MyTuitions></StudentRoute>
+            },
+            {
+                path: 'pending-tuitions',
+                element: <StudentRoute><PendingTuitions></PendingTuitions></StudentRoute>
+            },
+            {
+                path: 'post-new-tuition',
+                element: <StudentRoute><PostNewTuition></PostNewTuition></StudentRoute>
+            },
             {
                 path: 'applied-tutors',
                 element: <StudentRoute><AppliedTutors></AppliedTutors></StudentRoute>
             },
+
+            // Tutor Route
+            {
+                path: 'my-applications',
+                element: <TutorRoute><MyApplications></MyApplications></TutorRoute>
+            },
+
+            // Admin Route
             {
                 path: 'user-management',
                 element: <AdminRoute><UserManagement></UserManagement></AdminRoute>

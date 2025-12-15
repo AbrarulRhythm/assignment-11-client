@@ -9,6 +9,7 @@ import logoIcon from '../../../assets/logo-icon.png';
 import { PiUsersThree } from "react-icons/pi";
 import useRole from '../../../hooks/useRole';
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { FaRegFileAlt } from 'react-icons/fa';
 
 
 const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
@@ -34,31 +35,41 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                             <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Dashboard</span>
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to='/dashboard/my-tuitions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
-                            <div><SlBookOpen className='text-[18px]' /></div>
-                            <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>My Tuitions</span>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashboard/pending-tuitions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
-                            <div><MdPendingActions className='text-[22px]' /></div>
-                            <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Pending Tuitions</span>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/dashboard/post-new-tuition' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
-                            <div><MdOutlinePostAdd className='text-[24px]' /></div>
-                            <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Post New Tuition</span>
-                        </NavLink>
-                    </li>
 
                     {/* Student Only Routes */}
                     {role === 'student' && <>
                         <li>
+                            <NavLink to='/dashboard/my-tuitions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><SlBookOpen className='text-[18px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>My Tuitions</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/pending-tuitions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><MdPendingActions className='text-[22px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Pending Tuitions</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/post-new-tuition' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><MdOutlinePostAdd className='text-[24px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Post New Tuition</span>
+                            </NavLink>
+                        </li>
+                        <li>
                             <NavLink to='/dashboard/applied-tutors' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
                                 <div><LiaChalkboardTeacherSolid className='text-[24px]' /></div>
                                 <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Applied Tutors</span>
+                            </NavLink>
+                        </li>
+                    </>}
+
+                    {/* Tutor Only Routes */}
+                    {role === 'tutor' && <>
+                        <li>
+                            <NavLink to='/dashboard/my-applications' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><FaRegFileAlt className='text-[24px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>My Applications</span>
                             </NavLink>
                         </li>
                     </>}
