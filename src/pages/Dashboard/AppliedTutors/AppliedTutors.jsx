@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import DashboardTitle from '../../../components/DashboardTitle/DashboardTitle';
-import { IoCheckmarkSharp, IoSearchSharp } from 'react-icons/io5';
+import { IoCheckmarkSharp, IoSearchSharp, IoTimeOutline } from 'react-icons/io5';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
@@ -9,6 +9,7 @@ import { MdInfoOutline } from 'react-icons/md';
 import { IoMdClose } from 'react-icons/io';
 import { FiClock } from 'react-icons/fi';
 import { LuEye } from 'react-icons/lu';
+import Swal from 'sweetalert2';
 
 const AppliedTutors = () => {
     const { user } = useAuth();
@@ -16,7 +17,7 @@ const AppliedTutors = () => {
     const applicationDetailsModalRef = useRef();
     const [selectedApplication, setSelectedApplication] = useState([]);
 
-    const { isLoading, data: tutorApplications = [] } = useQuery({
+    const { isLoading, data: tutorApplications = [], refetch } = useQuery({
         queryKey: ['applications', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/tutor-request?email=${user.email}`);
@@ -28,6 +29,64 @@ const AppliedTutors = () => {
     const openApplicationModal = (application) => {
         applicationDetailsModalRef.current.showModal();
         setSelectedApplication(application);
+    }
+
+    // Update Application Status
+    const updateApplicationStatus = (application, status) => {
+        const statusInfo = { status };
+
+        // Conditional confirmation messages
+        const actionText =
+            status === "rejected"
+                ? "You want to reject this Application!"
+                : "You want to mark this application as Pending!";
+
+        const confirmButtonText =
+            status === "rejected"
+                ? "Yes, reject!"
+                : "Yes, pending!";
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: actionText,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: confirmButtonText
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/tutor-request/${application._id}/status/update`, statusInfo)
+                    .then(res => {
+                        if (res.data.modifiedCount) {
+                            // refresh the data in the ui
+                            refetch();
+
+                            const titleMessage = status === 'rejected'
+                                ? `Application has been rejected.`
+                                : `Application has been marked as pending.`;
+
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: titleMessage,
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                        }
+                    })
+            }
+        });
+    }
+
+    // Handle Reject Application
+    const handleRejectApplication = (application) => {
+        updateApplicationStatus(application, 'rejected');
+    }
+
+    // Handle Pending Application
+    const handlePendingApplication = (application) => {
+        updateApplicationStatus(application, 'pending');
     }
 
     return (
@@ -123,9 +182,15 @@ const AppliedTutors = () => {
                                                             // onClick={() => handleApproveTuition(tuition)}
                                                             data-tip="Make Approve" className='tooltip approve-btn'> <IoCheckmarkSharp /></button>
 
-                                                        <button
-                                                            // onClick={() => handleRejectTuition(tuition)}
-                                                            data-tip="Make Reject" className='tooltip reject-btn'> <IoMdClose /></button>
+                                                        {application.status === 'rejected' ? (
+                                                            <button
+                                                                onClick={() => handlePendingApplication(application)}
+                                                                data-tip="Make Pending" className='tooltip edit-btn'><IoTimeOutline /> </button>
+                                                        ) : (
+                                                            <button
+                                                                onClick={() => handleRejectApplication(application)}
+                                                                data-tip="Make Reject" className='tooltip reject-btn'> <IoMdClose /></button>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>

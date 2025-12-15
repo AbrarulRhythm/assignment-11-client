@@ -192,18 +192,22 @@ const MyApplications = () => {
                                                     <p className='w-[100px]'>{moment(application.appliedAt).format('LTS')}</p>
                                                 </td>
                                                 <td>
-                                                    <div className='flex items-center gap-2'>
+                                                    <div className='flex items-center justify-end gap-2'>
                                                         <button
                                                             onClick={() => openApplicationModal(application)}
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></button>
 
-                                                        <button
-                                                            onClick={() => openApplicationUpdateModal(application)}
-                                                            data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
+                                                        {(application.status !== 'rejected' && application.status !== 'approved') && (
+                                                            <>
+                                                                <button
+                                                                    onClick={() => openApplicationUpdateModal(application)}
+                                                                    data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
 
-                                                        <button
-                                                            onClick={() => handleDeleteTuition(application._id)}
-                                                            data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
+                                                                <button
+                                                                    onClick={() => handleDeleteTuition(application._id)}
+                                                                    data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
+                                                            </>
+                                                        )}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -235,7 +239,6 @@ const MyApplications = () => {
                     </div>
                     <div className="modal-action">
                         <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
                             <button className="btn">Close</button>
                         </form>
                     </div>
