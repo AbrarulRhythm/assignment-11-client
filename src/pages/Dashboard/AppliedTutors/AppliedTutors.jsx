@@ -117,7 +117,7 @@ const AppliedTutors = () => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Tutor Name</th>
+                            <th>Tutor</th>
                             <th>Subject Name</th>
                             <th>Expected Salary</th>
                             <th>Status</th>
@@ -153,7 +153,10 @@ const AppliedTutors = () => {
                                             <tr key={application._id}>
                                                 <th>{index + 1}</th>
                                                 <td>
-                                                    <p className='w-[150px]'>{application.tutorName}</p>
+                                                    <div className='flex items-center gap-2'>
+                                                        <img src={application.tutorPhoto ? application.tutorPhoto : '/default-user.png'} className='w-12 h-12 rounded-full object-cover' alt="Tutor Image" />
+                                                        <p>{application.tutorName}</p>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <p className='w-[200px] lg:w-auto'>{application.subjectName}</p>
@@ -173,14 +176,16 @@ const AppliedTutors = () => {
                                                     <p className='w-[100px]'>{moment(application.appliedAt).format('LTS')}</p>
                                                 </td>
                                                 <td>
-                                                    <div className='flex items-center gap-2'>
+                                                    <div className='flex items-center justify-end gap-2'>
                                                         <button
                                                             onClick={() => openApplicationModal(application)}
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></button>
 
-                                                        <button
-                                                            // onClick={() => handleApproveTuition(tuition)}
-                                                            data-tip="Make Approve" className='tooltip approve-btn'> <IoCheckmarkSharp /></button>
+                                                        {(application.status !== 'rejected' && application.status !== 'approved') && (
+                                                            <button
+                                                                // onClick={() => handleApproveTuition(tuition)}
+                                                                data-tip="Accept Tutor" className='tooltip approve-btn'> <IoCheckmarkSharp /></button>
+                                                        )}
 
                                                         {application.status === 'rejected' ? (
                                                             <button
@@ -189,7 +194,7 @@ const AppliedTutors = () => {
                                                         ) : (
                                                             <button
                                                                 onClick={() => handleRejectApplication(application)}
-                                                                data-tip="Make Reject" className='tooltip reject-btn'> <IoMdClose /></button>
+                                                                data-tip="Reject Tutor" className='tooltip reject-btn'> <IoMdClose /></button>
                                                         )}
                                                     </div>
                                                 </td>

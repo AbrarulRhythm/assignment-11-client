@@ -61,6 +61,7 @@ const TuitionDetails = () => {
         const tutorApplyInfo = {
             ...tutorApply,
             tutorId: currentUserId.id,
+            tutorPhoto: user?.photoURL,
             tuitionId: tuitionId,
             subjectName: tutionDetails.subject,
             studentEmail: tutionDetails.email,
