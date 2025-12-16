@@ -27,7 +27,7 @@ const DetailsModalTuition = ({ detailsModalRef, selectTuition }) => {
                             <p className='inline-block'>{moment(selectTuition.updatedAt).format('ll')} | {moment(selectTuition.updatedAt).format('LTS')}</p>
                         </li>}
                     <li><span className='text-dark-08 font-medium'>Status:</span> <span className={`
-                    ${selectTuition.status === 'approved' ? 'text-green-500' : selectTuition.status === 'pending' ? 'text-amber-500' : 'text-red-500'}`}>{(selectTuition?.status || 'unknown').toUpperCase()}</span></li>
+                    ${selectTuition.status === 'approved' ? 'text-green-500' : selectTuition.status === 'pending' ? 'text-amber-500' : selectTuition.status === 'closed' ? 'text-violet-500' : 'text-red-500'}`}>{(selectTuition?.status || 'unknown').toUpperCase()}</span></li>
                 </ul>
                 <span className='text-sm py-4 block text-dark-09 font-medium'>Personal Info:</span>
                 <ul className='space-y-2'>

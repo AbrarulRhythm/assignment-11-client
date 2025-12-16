@@ -26,7 +26,8 @@ const Payment = () => {
                 tutorSalary: application.tutorSalary,
                 tutorName: application.tutorName,
                 studentEmail: application.studentEmail,
-                applicationId: application._id
+                applicationId: application._id,
+                tuitionId: application.tuitionId
             }
 
             const res = await axiosSecure.post('/create-checkout-session', paymentInfo);

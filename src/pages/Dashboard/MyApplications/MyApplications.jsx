@@ -5,7 +5,7 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { IoCheckmarkSharp, IoSearchSharp } from 'react-icons/io5';
 import moment from 'moment';
-import { IoMdClose } from 'react-icons/io';
+import { IoIosLock, IoMdClose } from 'react-icons/io';
 import { MdInfoOutline } from 'react-icons/md';
 import { FiClock, FiEdit } from 'react-icons/fi';
 import { LuEye } from 'react-icons/lu';
@@ -179,12 +179,14 @@ const MyApplications = () => {
                                                 </td>
                                                 <td>৳{application.tutorSalary}</td>
                                                 <td>
-                                                    <span className={application.status === 'approved' ? 'status-approved' : application.status === 'rejected' ? 'status-reject' : 'status-pending'}>
+                                                    <span className={application.status === 'approved' ? 'status-approved' : application.status === 'rejected' ? 'status-reject' : application.status === 'closed' ? 'status-closed' : 'status-pending'}>
                                                         {application.status === 'approved'
                                                             ? <><IoCheckmarkSharp className='text-sm' /> {application.status}</>
                                                             : application.status === 'rejected'
                                                                 ? <><IoMdClose className='text-sm' /> {application.status} </>
-                                                                : <><FiClock className='text-sm' /> {application.status}</>}
+                                                                : application.status === 'closed'
+                                                                    ? <><IoIosLock className='text-sm' /> {application.status}</>
+                                                                    : <><FiClock className='text-sm' /> {application.status}</>}
                                                     </span>
                                                 </td>
                                                 <td>
@@ -197,7 +199,7 @@ const MyApplications = () => {
                                                             onClick={() => openApplicationModal(application)}
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></button>
 
-                                                        {(application.status !== 'rejected' && application.status !== 'approved') && (
+                                                        {(application.status !== 'rejected' && application.status !== 'approved' && application.status !== 'closed') && (
                                                             <>
                                                                 <button
                                                                     onClick={() => openApplicationUpdateModal(application)}
@@ -233,7 +235,7 @@ const MyApplications = () => {
                             <li>Qualifications : <span className='text-dark-08 font-medium'>{selectedApplication.tutorQualifications}</span></li>
                             <li>Expected Salary : <span className='text-dark-08 font-medium'>{selectedApplication.tutorSalary}</span></li>
                             <li>Status: <span className={`
-                                ${selectedApplication.status === 'approved' ? 'text-green-500' : selectedApplication.status === 'pending' ? 'text-amber-500' : 'text-red-500'}`}>{(selectedApplication?.status || 'unknown').toUpperCase()}</span></li>
+                    ${selectedApplication.status === 'approved' ? 'text-green-500' : selectedApplication.status === 'pending' ? 'text-amber-500' : selectedApplication.status === 'closed' ? 'text-violet-500' : 'text-red-500'}`}>{(selectedApplication?.status || 'unknown').toUpperCase()}</span></li>
                             <li>Applied At : <span className='text-dark-08 font-medium'>{moment(selectedApplication.updatedAt).format('ll')} | {moment(selectedApplication.updatedAt).format('LTS')}</span></li>
                         </ul>
                     </div>

@@ -6,7 +6,7 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import { MdInfoOutline } from 'react-icons/md';
-import { IoMdClose } from 'react-icons/io';
+import { IoIosLock, IoMdClose } from 'react-icons/io';
 import { FiClock } from 'react-icons/fi';
 import { LuEye } from 'react-icons/lu';
 import Swal from 'sweetalert2';
@@ -164,12 +164,14 @@ const AppliedTutors = () => {
                                                 </td>
                                                 <td>৳{application.tutorSalary}</td>
                                                 <td>
-                                                    <span className={application.status === 'approved' ? 'status-approved' : application.status === 'rejected' ? 'status-reject' : 'status-pending'}>
+                                                    <span className={application.status === 'approved' ? 'status-approved' : application.status === 'rejected' ? 'status-reject' : application.status === 'closed' ? 'status-closed' : 'status-pending'}>
                                                         {application.status === 'approved'
                                                             ? <><IoCheckmarkSharp className='text-sm' /> {application.status}</>
                                                             : application.status === 'rejected'
                                                                 ? <><IoMdClose className='text-sm' /> {application.status} </>
-                                                                : <><FiClock className='text-sm' /> {application.status}</>}
+                                                                : application.status === 'closed'
+                                                                    ? <><IoIosLock className='text-sm' /> {application.status}</>
+                                                                    : <><FiClock className='text-sm' /> {application.status}</>}
                                                     </span>
                                                 </td>
                                                 <td>
@@ -182,20 +184,24 @@ const AppliedTutors = () => {
                                                             onClick={() => openApplicationModal(application)}
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></button>
 
-                                                        {(application.status !== 'rejected' && application.status !== 'approved') && (
+                                                        {(application.status !== 'rejected' && application.status !== 'approved' && application.status !== 'closed') && (
                                                             <Link
                                                                 to={`/dashboard/payment/${application._id}`}
                                                                 data-tip="Accept Tutor" className='tooltip approve-btn'> <IoCheckmarkSharp /></Link>
                                                         )}
 
-                                                        {application.status === 'rejected' ? (
-                                                            <button
-                                                                onClick={() => handlePendingApplication(application)}
-                                                                data-tip="Make Pending" className='tooltip edit-btn'><IoTimeOutline /> </button>
-                                                        ) : (
-                                                            <button
-                                                                onClick={() => handleRejectApplication(application)}
-                                                                data-tip="Reject Tutor" className='tooltip reject-btn'> <IoMdClose /></button>
+                                                        {(application.status !== 'closed') && (
+                                                            <>
+                                                                {application.status === 'rejected' ? (
+                                                                    <button
+                                                                        onClick={() => handlePendingApplication(application)}
+                                                                        data-tip="Make Pending" className='tooltip edit-btn'><IoTimeOutline /> </button>
+                                                                ) : (
+                                                                    <button
+                                                                        onClick={() => handleRejectApplication(application)}
+                                                                        data-tip="Reject Tutor" className='tooltip reject-btn'> <IoMdClose /></button>
+                                                                )}
+                                                            </>
                                                         )}
                                                     </div>
                                                 </td>
@@ -221,7 +227,7 @@ const AppliedTutors = () => {
                             <li>Qualifications : <span className='text-dark-08 font-medium'>{selectedApplication.tutorQualifications}</span></li>
                             <li>Expected Salary : <span className='text-dark-08 font-medium'>{selectedApplication.tutorSalary}</span></li>
                             <li>Status: <span className={`
-                    ${selectedApplication.status === 'approved' ? 'text-green-500' : selectedApplication.status === 'pending' ? 'text-amber-500' : 'text-red-500'}`}>{(selectedApplication?.status || 'unknown').toUpperCase()}</span></li>
+                    ${selectedApplication.status === 'approved' ? 'text-green-500' : selectedApplication.status === 'pending' ? 'text-amber-500' : selectedApplication.status === 'closed' ? 'text-violet-500' : 'text-red-500'}`}>{(selectedApplication?.status || 'unknown').toUpperCase()}</span></li>
                             <li>Applied At : <span className='text-dark-08 font-medium'>{moment(selectedApplication.updatedAt).format('ll')} | {moment(selectedApplication.updatedAt).format('LTS')}</span></li>
                         </ul>
                     </div>

@@ -168,6 +168,10 @@ table th {
   @apply text-[12px] flex items-center gap-1 text-red-500 rounded-sm border border-red-400 bg-red-100 w-fit py-1 px-2
 }
 
+.status-closed {
+  @apply text-[12px] flex items-center gap-1 text-violet-500 rounded-sm border border-violet-400 bg-violet-100 w-fit py-1 px-2
+}
+
 /* [ Header ] */
 /*================================================== */
 /* Top Header */

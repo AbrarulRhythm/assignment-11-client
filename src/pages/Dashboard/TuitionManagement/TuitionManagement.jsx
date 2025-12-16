@@ -11,7 +11,7 @@ import DetailsModalTuition from '../../Shared/TuitionModals/DetailsModalTuition'
 import EditModalTuition from '../../Shared/TuitionModals/EditModalTuition';
 import Swal from 'sweetalert2';
 import { IoCheckmarkSharp, IoSearchSharp } from "react-icons/io5";
-import { IoMdClose } from "react-icons/io";
+import { IoIosLock, IoMdClose } from "react-icons/io";
 
 const TuitionManagement = () => {
     const axiosSecure = useAxiosSecure();
@@ -207,12 +207,14 @@ const TuitionManagement = () => {
                                                     <p className='w-[200px] lg:w-[230px]'>{tuition.schedule}</p>
                                                 </td>
                                                 <td>
-                                                    <span className={tuition.status === 'approved' ? 'status-approved' : tuition.status === 'rejected' ? 'status-reject' : 'status-pending'}>
+                                                    <span className={tuition.status === 'approved' ? 'status-approved' : tuition.status === 'rejected' ? 'status-reject' : tuition.status === 'closed' ? 'status-closed' : 'status-pending'}>
                                                         {tuition.status === 'approved'
                                                             ? <><IoCheckmarkSharp className='text-sm' /> {tuition.status}</>
                                                             : tuition.status === 'rejected'
                                                                 ? <><IoMdClose className='text-sm' /> {tuition.status} </>
-                                                                : <><FiClock className='text-sm' /> {tuition.status}</>}
+                                                                : tuition.status === 'closed'
+                                                                    ? <><IoIosLock className='text-sm' /> {tuition.status}</>
+                                                                    : <><FiClock className='text-sm' /> {tuition.status}</>}
                                                     </span>
                                                 </td>
                                                 <td>
@@ -220,20 +222,26 @@ const TuitionManagement = () => {
                                                     <p className='w-[100px]'>{moment(tuition.createdAt).format('LTS')}</p>
                                                 </td>
                                                 <td>
-                                                    <div className='flex items-center gap-2'>
+                                                    <div className='flex items-center justify-end gap-2'>
                                                         <button
                                                             onClick={() => handleDetailsTuition(tuition)}
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></button>
-                                                        {tuition.status === 'rejected' || tuition.status === 'pending' ?
-                                                            <button
-                                                                onClick={() => handleApproveTuition(tuition)}
-                                                                data-tip="Make Approve" className='tooltip approve-btn'> <IoCheckmarkSharp /></button>
-                                                            : <button
-                                                                onClick={() => handleRejectTuition(tuition)}
-                                                                data-tip="Make Reject" className='tooltip reject-btn'> <IoMdClose /></button>}
-                                                        <button
-                                                            onClick={() => handleEditTuition(tuition)}
-                                                            data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
+                                                        {tuition.status !== 'closed' && (
+                                                            <>
+
+
+                                                                {tuition.status === 'rejected' || tuition.status === 'pending' ?
+                                                                    <button
+                                                                        onClick={() => handleApproveTuition(tuition)}
+                                                                        data-tip="Make Approve" className='tooltip approve-btn'> <IoCheckmarkSharp /></button>
+                                                                    : <button
+                                                                        onClick={() => handleRejectTuition(tuition)}
+                                                                        data-tip="Make Reject" className='tooltip reject-btn'> <IoMdClose /></button>}
+                                                                <button
+                                                                    onClick={() => handleEditTuition(tuition)}
+                                                                    data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
+                                                            </>
+                                                        )}
                                                         <button
                                                             onClick={() => handleDeleteTuition(tuition._id)}
                                                             data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
