@@ -22,6 +22,9 @@ import AppliedTutors from "../pages/Dashboard/AppliedTutors/AppliedTutors";
 import StudentRoute from "./StudentRoute";
 import MyApplications from "../pages/Dashboard/MyApplications/MyApplications";
 import TutorRoute from "./TutorRoute";
+import Payment from "../pages/Dashboard/Payment/Payment";
+import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
 
 export const router = createBrowserRouter([
     {
@@ -73,7 +76,18 @@ export const router = createBrowserRouter([
                 path: 'profile-settings/:id',
                 Component: ProfileSettings
             },
-
+            {
+                path: 'payment/:id',
+                Component: Payment
+            },
+            {
+                path: 'payment-success',
+                Component: PaymentSuccess
+            },
+            {
+                path: 'payment-cancelled',
+                Component: PaymentCancelled
+            },
             // Student Route
             {
                 path: 'my-tuitions',
@@ -91,13 +105,11 @@ export const router = createBrowserRouter([
                 path: 'applied-tutors',
                 element: <StudentRoute><AppliedTutors></AppliedTutors></StudentRoute>
             },
-
             // Tutor Route
             {
                 path: 'my-applications',
                 element: <TutorRoute><MyApplications></MyApplications></TutorRoute>
             },
-
             // Admin Route
             {
                 path: 'user-management',

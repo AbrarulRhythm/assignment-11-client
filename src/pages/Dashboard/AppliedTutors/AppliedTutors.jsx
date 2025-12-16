@@ -10,6 +10,7 @@ import { IoMdClose } from 'react-icons/io';
 import { FiClock } from 'react-icons/fi';
 import { LuEye } from 'react-icons/lu';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const AppliedTutors = () => {
     const { user } = useAuth();
@@ -182,9 +183,9 @@ const AppliedTutors = () => {
                                                             data-tip="Details" className='tooltip view-btn'><LuEye /></button>
 
                                                         {(application.status !== 'rejected' && application.status !== 'approved') && (
-                                                            <button
-                                                                // onClick={() => handleApproveTuition(tuition)}
-                                                                data-tip="Accept Tutor" className='tooltip approve-btn'> <IoCheckmarkSharp /></button>
+                                                            <Link
+                                                                to={`/dashboard/payment/${application._id}`}
+                                                                data-tip="Accept Tutor" className='tooltip approve-btn'> <IoCheckmarkSharp /></Link>
                                                         )}
 
                                                         {application.status === 'rejected' ? (
