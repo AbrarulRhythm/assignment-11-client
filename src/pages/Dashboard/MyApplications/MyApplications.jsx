@@ -3,7 +3,7 @@ import DashboardTitle from '../../../components/DashboardTitle/DashboardTitle';
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { IoCheckmarkSharp, IoSearchSharp } from 'react-icons/io5';
+import { IoCheckmarkSharp } from 'react-icons/io5';
 import moment from 'moment';
 import { IoIosLock, IoMdClose } from 'react-icons/io';
 import { MdInfoOutline } from 'react-icons/md';
@@ -115,20 +115,6 @@ const MyApplications = () => {
             <DashboardTitle
                 title='My Applications'
             ></DashboardTitle>
-
-            <div className='flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6'>
-                <h3 className='text-xl font-semibold text-dark-07'>Total Applications: {myApplications.length}</h3>
-                <div className='relative w-full md:w-auto'>
-                    <div className='flex'>
-                        <div className='h-[50px] w-[50px] bg-white text-lg flex border-l border-t border-b border-dark-03 rounded-l-md items-center justify-center'>
-                            <IoSearchSharp />
-                        </div>
-                        <input
-                            // onChange={(e) => setSearchText(e.target.value)}
-                            type="text" className='w-full md:w-auto bg-white border border-dark-03 rounded-r-md py-3 pl-4 pr-5 focus:outline-0 focus:border-theme-primary h-[50px]' placeholder='Search...' />
-                    </div>
-                </div>
-            </div>
 
             <div className="overflow-x-auto bg-white border border-dark-03 rounded-xl">
                 <table className="table table-zebra">

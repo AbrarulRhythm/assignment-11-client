@@ -11,6 +11,7 @@ import useRole from '../../../hooks/useRole';
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { FaRegFileAlt } from 'react-icons/fa';
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { LuHistory } from "react-icons/lu";
 
 const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
     const { isLoading, role } = useRole();
@@ -106,6 +107,16 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                                     <NavLink to='/dashboard/tuition-management' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
                                         <div><MdOutlineCategory className='text-[24px]' /></div>
                                         <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Tuition Management</span>
+                                    </NavLink>
+                                </li>
+                            </>}
+
+                            {/* Tutor and Student */}
+                            {role !== 'admin' && <>
+                                <li>
+                                    <NavLink to='/dashboard/payment-history' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                        <div><LuHistory className='text-[22px]' /></div>
+                                        <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Payment History</span>
                                     </NavLink>
                                 </li>
                             </>}

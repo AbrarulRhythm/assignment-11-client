@@ -34,7 +34,7 @@ const LatestTuition = () => {
                     <>
                         {/* Empty Satte */}
                         {(!latestTuitions || latestTuitions.length === 0) ? (
-                            <div className='text-center'>
+                            <div className='text-center mx-auto'>
                                 <MdInfoOutline className='text-4xl mx-auto mb-4' />
                                 <span className='text-base'>No tuitions available at the moment.</span>
                             </div>
