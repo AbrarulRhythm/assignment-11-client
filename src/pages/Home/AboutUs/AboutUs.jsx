@@ -46,6 +46,7 @@ const AboutUs = () => {
                             <img src={element} className='absolute -top-6 -left-6' alt="element" />
                             <img src={aboutUs1} className='rounded-md lg:max-w-[382px] z-10 relative' alt="about us image" />
                             <img src={aboutUs2} className='rounded-md absolute bottom-0 right-0 z-20' alt="about us image" />
+                            <div className='block lg:hidden absolute w-[258px] h-[258px] bg-[linear-gradient(0deg,#FFA2F9,#FFA2F9)] blur-[182px] rounded-full top-[50%] left-[18px] md:left-[34px] lg:left-[39%] z-10'></div>
                         </div>
                         <div className='flex items-center gap-2 border-l-4 border-theme-primary py-5 px-4 absolute left-0 bottom-0 z-30 bg-white animate-move1'>
                             <h3 className='text-[44px] font-semibold text-theme-primary'>5+</h3>
@@ -105,6 +106,12 @@ const AboutUs = () => {
                         })
                     }
                 </div>
+            </div>
+
+
+            {/* Elements */}
+            <div>
+                <div className='hidden lg:block absolute w-[258px] h-[258px] bg-[linear-gradient(0deg,#FFCD20,#FFCD20)] blur-[182px] rounded-full top-[50%] right-[-171px] -translate-y-[20%] '></div>
             </div>
         </div>
     );

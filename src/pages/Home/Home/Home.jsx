@@ -20,7 +20,7 @@ const Home = () => {
                 <AboutUs></AboutUs>
             </section>
 
-            <section className='pt-10 pb-4 md:pt-14 md:pb-8 lg:pt-20 lg:pb-14 bg-content-bg'>
+            <section className='pt-10 pb-4 md:pt-14 md:pb-8 lg:pt-20 lg:pb-14 bg-content-bg relative'>
                 <LatestTuition></LatestTuition>
             </section>
 
