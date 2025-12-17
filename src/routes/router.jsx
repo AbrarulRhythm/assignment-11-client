@@ -28,6 +28,7 @@ import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
 import OngoingTuitions from "../pages/Dashboard/OngoingTuitions/OngoingTuitions";
 import CompletedTutions from "../pages/Dashboard/CompletedTutions/CompletedTutions";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import TransactionHistory from "../pages/Dashboard/TransactionHistory/TransactionHistory";
 
 export const router = createBrowserRouter([
     {
@@ -133,6 +134,10 @@ export const router = createBrowserRouter([
             {
                 path: 'tuition-management',
                 element: <AdminRoute><TuitionManagement></TuitionManagement></AdminRoute>
+            },
+            {
+                path: 'transaction-history',
+                element: <AdminRoute><TransactionHistory></TransactionHistory></AdminRoute>
             }
         ]
     }

@@ -109,6 +109,12 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                                         <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Tuition Management</span>
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink to='/dashboard/transaction-history' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                        <div><LuHistory className='text-[22px]' /></div>
+                                        <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Transaction History</span>
+                                    </NavLink>
+                                </li>
                             </>}
 
                             {/* Tutor and Student */}
