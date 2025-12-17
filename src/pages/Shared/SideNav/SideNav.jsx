@@ -38,9 +38,9 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
 
                     {isLoading ? (
                         <div className='space-y-2'>
-                            <div class="skeleton py-6 w-full"></div>
-                            <div class="skeleton py-6 w-full"></div>
-                            <div class="skeleton py-6 w-full"></div>
+                            <div className="skeleton py-6 w-full"></div>
+                            <div className="skeleton py-6 w-full"></div>
+                            <div className="skeleton py-6 w-full"></div>
                         </div>
                     ) : (
                         <>

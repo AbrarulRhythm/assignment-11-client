@@ -28,6 +28,7 @@ const Payment = () => {
                 tutorEmail: application.tutorEmail,
                 studentEmail: application.studentEmail,
                 applicationId: application._id,
+                subjectName: application.subjectName,
                 tuitionId: application.tuitionId
             }
 
