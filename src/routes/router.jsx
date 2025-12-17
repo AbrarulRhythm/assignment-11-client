@@ -25,6 +25,8 @@ import TutorRoute from "./TutorRoute";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancelled from "../pages/Dashboard/Payment/PaymentCancelled";
+import OngoingTuitions from "../pages/Dashboard/OngoingTuitions/OngoingTuitions";
+import CompletedTutions from "../pages/Dashboard/CompletedTutions/CompletedTutions";
 
 export const router = createBrowserRouter([
     {
@@ -109,6 +111,14 @@ export const router = createBrowserRouter([
             {
                 path: 'my-applications',
                 element: <TutorRoute><MyApplications></MyApplications></TutorRoute>
+            },
+            {
+                path: 'ongoing-tuitions',
+                element: <TutorRoute><OngoingTuitions></OngoingTuitions></TutorRoute>
+            },
+            {
+                path: 'completed-tutions',
+                element: <TutorRoute><CompletedTutions></CompletedTutions></TutorRoute>
             },
             // Admin Route
             {

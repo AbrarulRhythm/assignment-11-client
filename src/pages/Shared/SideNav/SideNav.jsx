@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../../../components/Logo/Logo';
 import { NavLink } from 'react-router';
 import { RxDashboard } from "react-icons/rx";
-import { MdOutlineCategory, MdOutlinePostAdd, MdPendingActions } from 'react-icons/md';
+import { MdOutlineCategory, MdOutlinePostAdd, MdOutlineSpoke, MdPendingActions } from 'react-icons/md';
 import { SlBookOpen } from "react-icons/sl";
 import { TbArrowBarToLeft } from 'react-icons/tb';
 import logoIcon from '../../../assets/logo-icon.png';
@@ -10,7 +10,7 @@ import { PiUsersThree } from "react-icons/pi";
 import useRole from '../../../hooks/useRole';
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { FaRegFileAlt } from 'react-icons/fa';
-
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
     const { role } = useRole();
@@ -70,6 +70,18 @@ const SideNav = ({ sideMenuOpen, setSideMenuOpen }) => {
                             <NavLink to='/dashboard/my-applications' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
                                 <div><FaRegFileAlt className='text-[24px]' /></div>
                                 <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>My Applications</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/ongoing-tuitions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><MdOutlineSpoke className='text-[24px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Ongoing Tuitions</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to='/dashboard/completed-tutions' className={`${sideMenuOpen && 'lg:justify-center'} flex items-center`}>
+                                <div><IoMdCheckmarkCircleOutline className='text-[24px]' /></div>
+                                <span className={`${sideMenuOpen && 'lg:hidden'} text-sm pl-2`}>Completed Tutions</span>
                             </NavLink>
                         </li>
                     </>}

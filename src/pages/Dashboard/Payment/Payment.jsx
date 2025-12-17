@@ -25,6 +25,7 @@ const Payment = () => {
             const paymentInfo = {
                 tutorSalary: application.tutorSalary,
                 tutorName: application.tutorName,
+                tutorEmail: application.tutorEmail,
                 studentEmail: application.studentEmail,
                 applicationId: application._id,
                 tuitionId: application.tuitionId
