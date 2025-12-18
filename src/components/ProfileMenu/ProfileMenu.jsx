@@ -82,7 +82,7 @@ const ProfileMenu = ({ menuRef, openProfileMenu, setOpenProfileMenu }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to={`/dashboard/user-profile/${id}`} className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
+                    <Link to={`/dashboard/profile-settings/${id}`} className='flex items-center px-4 py-2 gap-2 hover:bg-gray-100'>
                         <IoSettingsOutline className='text-lg' /> Account Settings
                     </Link>
                 </li>

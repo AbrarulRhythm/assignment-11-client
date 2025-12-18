@@ -111,7 +111,7 @@ const AboutUs = () => {
 
             {/* Elements */}
             <div>
-                <div className='hidden lg:block absolute w-[258px] h-[258px] bg-[linear-gradient(0deg,#FFCD20,#FFCD20)] blur-[182px] rounded-full top-[50%] right-[-171px] -translate-y-[20%] '></div>
+                <div className='hidden lg:block absolute w-[258px] h-[258px] bg-[linear-gradient(0deg,#FFCD20,#FFCD20)] blur-[182px] rounded-full bottom-0 right-[-171px] -translate-y-[20%] '></div>
             </div>
         </div>
     );

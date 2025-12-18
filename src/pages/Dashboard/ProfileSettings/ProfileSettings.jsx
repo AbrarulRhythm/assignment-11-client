@@ -263,12 +263,37 @@ const ProfileSettings = () => {
                                                             <input {...register('location')} defaultValue={user.location} type="text" className='form-field' placeholder='Location' />
                                                         </div>
                                                         {/* About */}
-                                                        <div className='w-full md:w-12/12 px-2 mb-3'>
+                                                        <div className='w-full md:w-12/12 px-2'>
                                                             <label className='form-label'>About</label>
                                                             <textarea {...register('about')} defaultValue={user.about} rows='4' className='form-field' placeholder='About'></textarea>
                                                         </div>
                                                     </div>
-                                                    <button type='submit' className='rounded-md py-3.5 px-8 button-fill duration-300 cursor-pointer' disabled={isSubmitting}>
+                                                    {role === 'tutor' && <>
+                                                        <span className='text-sm font-semibold text-dark-09 block my-4'>Other Info</span>
+                                                        <div className='flex flex-wrap -mx-3'>
+                                                            {/* Subjects */}
+                                                            <div className='w-full md:w-6/12 px-2 mb-3'>
+                                                                <label className='form-label'>Subjects</label>
+                                                                <input {...register('subjects')} defaultValue={user.subjects} type="text" className='form-field' placeholder='Mathematics, Physics' />
+                                                            </div>
+                                                            {/* Rate */}
+                                                            <div className='w-full md:w-6/12 px-2 mb-3'>
+                                                                <label className='form-label'>Rate</label>
+                                                                <input {...register('rate')} defaultValue={user.rate} type="number" className='form-field' placeholder='1000' />
+                                                            </div>
+                                                            {/* Class */}
+                                                            <div className='w-full md:w-6/12 px-2 mb-3'>
+                                                                <label className='form-label'>Class/Grade</label>
+                                                                <input {...register('class')} defaultValue={user.class} type="text" className='form-field' placeholder='HSC or 6 - 10' />
+                                                            </div>
+                                                            {/* Experience */}
+                                                            <div className='w-full md:w-6/12 px-2 mb-3'>
+                                                                <label className='form-label'>Experience</label>
+                                                                <input {...register('experience')} defaultValue={user.experience} type="text" className='form-field' placeholder='3 Years Exp' />
+                                                            </div>
+                                                        </div>
+                                                    </>}
+                                                    <button type='submit' className='rounded-md py-3.5 px-8 button-fill duration-300 cursor-pointer mt-4' disabled={isSubmitting}>
                                                         {isSubmitting ? <><span className='loading loading-spinner loading-sm mr-1.5'></span> Update Profile</> : 'Update Profile'}
                                                     </button>
                                                 </form>

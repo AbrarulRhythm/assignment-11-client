@@ -4,6 +4,7 @@ import Brands from '../Brands/Brands';
 import AboutUs from '../AboutUs/AboutUs';
 import LatestTuition from '../LatestTuition/LatestTuition';
 import WhyChooseUs from '../WhyChooseUs/WhyChooseUs';
+import LatestTutor from '../LatestTutor/LatestTutor';
 
 const Home = () => {
     return (
@@ -16,7 +17,7 @@ const Home = () => {
                 <Brands></Brands>
             </section>
 
-            <section className='about-us pt-16 pb-4 md:pt-[72px] md:pb-6 lg:pt-[104px] lg:pb-14'>
+            <section className='about-us pt-16 pb-4 md:pt-[72px] md:pb-6 lg:pt-[104px] lg:pb-14 relative'>
                 <AboutUs></AboutUs>
             </section>
 
@@ -24,10 +25,14 @@ const Home = () => {
                 <LatestTuition></LatestTuition>
             </section>
 
-            <section className='pt-10 pb-4 lg:py-20'>
+            <section className='pt-10 pb-4 lg:py-20 relative z-20'>
                 <div className='relative before:content-[""] before:w-full before:h-[440px] before:absolute before:bottom-0 bg-none lg:before:bg-content-bg'>
                     <WhyChooseUs></WhyChooseUs>
                 </div>
+            </section>
+
+            <section className='latest-tutor relative'>
+                <LatestTutor></LatestTutor>
             </section>
         </>
     );
