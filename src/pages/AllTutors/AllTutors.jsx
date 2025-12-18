@@ -3,6 +3,7 @@ import SectionBanner from '../../components/SectionBanner/SectionBanner';
 import useAxios from '../../hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import TutorCard from '../Shared/TutorCard/TutorCard';
+import { MdInfoOutline } from 'react-icons/md';
 
 const AllTutors = () => {
     const axiosInstance = useAxios();
