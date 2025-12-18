@@ -29,6 +29,7 @@ import OngoingTuitions from "../pages/Dashboard/OngoingTuitions/OngoingTuitions"
 import CompletedTutions from "../pages/Dashboard/CompletedTutions/CompletedTutions";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import TransactionHistory from "../pages/Dashboard/TransactionHistory/TransactionHistory";
+import AllTutors from "../pages/AllTutors/AllTutors";
 
 export const router = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
             {
                 path: 'tuitions/:id',
                 Component: TuitionDetails
+            },
+            {
+                path: 'tutors',
+                Component: AllTutors
             }
         ]
     },

@@ -28,10 +28,10 @@ const TransactionHistory = () => {
 
     return (
         <div className='dashboard'>
-            <title>Payment History</title>
+            <title>Transaction History</title>
 
             <DashboardTitle
-                title='Payment History'
+                title='Transaction History'
             ></DashboardTitle>
 
             <div className="overflow-x-auto bg-white border border-dark-03 rounded-xl">
@@ -84,8 +84,8 @@ const TransactionHistory = () => {
                                                 <td>{payment.transactionId}</td>
                                                 <td>${payment.amount}</td>
                                                 <td>
-                                                    <p className='w-[100px]'>{moment(payment.appliedAt).format('ll')}</p>
-                                                    <p className='w-[100px]'>{moment(payment.appliedAt).format('LTS')}</p>
+                                                    <p className='w-[100px]'>{moment(payment.paidAt).format('ll')}</p>
+                                                    <p className='w-[100px]'>{moment(payment.paidAt).format('LTS')}</p>
                                                 </td>
                                                 <td>
                                                     <div className='flex items-center justify-end gap-2'>

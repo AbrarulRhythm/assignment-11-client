@@ -95,6 +95,8 @@ const TuitionDetails = () => {
 
     return (
         <>
+            <title>{tutionDetails ? tutionDetails.subject : 'Tution Details'}</title>
+
             <SectionBanner
                 title='Tuition Details'
                 currentLink='Tuition Details'
