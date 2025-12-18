@@ -18,6 +18,8 @@ const CompletedTutions = () => {
         }
     });
 
+    console.log(completedTuitions);
+
     return (
         <div className='dashboard'>
             <title>Completed Tutions</title>
