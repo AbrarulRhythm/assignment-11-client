@@ -15,13 +15,14 @@ const MyTuitions = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
 
-    const { isLoading, data: tuitions = [] } = useQuery({
+    const { isLoading, data: responseData = { result: [] }, } = useQuery({
         queryKey: ['approvedTuitions', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/tuitions?email=${user.email}&status=approved`);
             return res.data;
         }
     });
+    const tuitions = responseData.result;
 
     return (
         <div className='dashboard'>

@@ -21,13 +21,14 @@ const PendingTuitions = () => {
     const editModalRef = useRef();
     const [selectTuition, setSelectTuition] = useState([]);
 
-    const { isLoading, data: tuitions = [], refetch } = useQuery({
+    const { isLoading, data: responseData = { result: [] }, refetch } = useQuery({
         queryKey: ['pendingTuitions', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/tuitions?email=${user.email}&status=pending,rejected`);
             return res.data;
         }
     });
+    const tuitions = responseData.result;
 
     // Handle Details Tuition
     const handleDetailsTuition = (tuition) => {
