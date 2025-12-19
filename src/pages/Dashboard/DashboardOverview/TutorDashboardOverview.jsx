@@ -7,6 +7,8 @@ import approvedTutions from '../../../assets/approved-tutions.png';
 import pendingTutions from '../../../assets/pending-tutions.png';
 import closedTutions from '../../../assets/closed-tutions.png';
 import rejectedTutions from '../../../assets/rejected-tutions.png';
+import creditCard from '../../../assets/credit-card.png';
+import profit from '../../../assets/profit.png';
 
 const TutorDashboardOverview = () => {
     const { user } = useAuth();
@@ -17,6 +19,14 @@ const TutorDashboardOverview = () => {
         queryFn: async () => {
             const res = await axiosSecure.get(`/tutor-request/status?email=${user.email}`);
             return res.data
+        }
+    });
+
+    const { isLoading: totalAmountLoading, data: totalAmountData } = useQuery({
+        queryKey: ['total_amount'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/payments/total?email=${user.email}&role=tutor`);
+            return res.data;
         }
     });
 
@@ -55,6 +65,32 @@ const TutorDashboardOverview = () => {
                             </div>
                         )
                     })
+                )}
+                {totalAmountLoading ? (
+                    <div className='text-center'>
+                        <span className="loading loading-bars loading-lg"></span>
+                    </div>
+                ) : (
+                    <>
+                        <div className='w-full md:w-auto bg-white border border-dark-03 rounded-2xl p-5 flex items-start gap-3'>
+                            <div className={`w-13 h-13 rounded-full border border-dark-03 p-2.5`}>
+                                <img src={profit} alt="ststus icvon" />
+                            </div>
+                            <div>
+                                <span className='text-[12px] block mb-0.5'>Total Earning</span>
+                                <h2 className='text-dark-09 font-semibold text-[28px]'>{totalAmountData.totalEarning < 10 ? `0${totalAmountData.totalEarning}` : totalAmountData.totalEarning}</h2>
+                            </div>
+                        </div>
+                        <div className='w-full md:w-auto bg-white border border-dark-03 rounded-2xl p-5 flex items-start gap-3'>
+                            <div className={`w-13 h-13 rounded-full border border-dark-03 p-2.5`}>
+                                <img src={creditCard} alt="ststus icvon" />
+                            </div>
+                            <div>
+                                <span className='text-[12px] block mb-0.5'>Total Payment</span>
+                                <h2 className='text-dark-09 font-semibold text-[28px]'>{totalAmountData.totalOrders < 10 ? `0${totalAmountData.totalOrders}` : totalAmountData.totalOrders}</h2>
+                            </div>
+                        </div>
+                    </>
                 )}
             </div>
         </div>
