@@ -10,12 +10,14 @@ const AllTuitions = () => {
     const axiosInstance = useAxios();
     const [searchText, setSearchText] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
+    const [sort, setSort] = useState('');
+    const [order, setOrder] = useState('');
     const limit = 12;
 
     const { isLoading, data: responseData = { result: [], count: 0 } } = useQuery({
-        queryKey: ['tuitions', searchText, currentPage],
+        queryKey: ['tuitions', searchText, currentPage, order],
         queryFn: async () => {
-            const res = await axiosInstance.get(`/tuitions?searchText=${searchText}&skip=${currentPage * limit}&limit=${limit}&status=approved`);
+            const res = await axiosInstance.get(`/tuitions?searchText=${searchText}&skip=${currentPage * limit}&limit=${limit}&sort=${sort}&order=${order}&status=approved`);
             return res.data;
         },
         placeholderData: keepPreviousData,
@@ -40,6 +42,13 @@ const AllTuitions = () => {
         }
     }
 
+    // Handle Sort
+    const handleSelect = (e) => {
+        const sortText = e.target.value;
+        setSort(sortText.split('-')[0]);
+        setOrder(sortText.split('-')[1]);
+    }
+
     return (
         <>
             <title>All Tuitions - eTuitionBd</title>
@@ -54,16 +63,24 @@ const AllTuitions = () => {
                     <div className='flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-12'>
                         <h3 className='text-xl font-semibold text-dark-07'>Total Tuitions: {totalCount}</h3>
                         <div className='relative w-full md:w-auto'>
-                            <div className='flex'>
-                                <div className='h-[50px] w-[50px] bg-white text-lg flex border-l border-t border-b border-dark-03 rounded-l-md items-center justify-center'>
-                                    <IoSearchSharp />
+                            <div className='flex flex-col md:flex-row items-start mditems-center gap-3'>
+                                <select onChange={handleSelect} defaultValue="" className="select h-[50px] outline-0 focus:border-theme-primary">
+                                    <option value=''>Sort by  budget </option>
+                                    <option value={"budget-desc"}>Budget : High - Low</option>
+                                    <option value={"budget-asc"}>Budget : Low - High</option>
+                                </select>
+
+                                <div className='flex'>
+                                    <div className='h-[50px] w-[50px] bg-white text-lg flex border-l border-t border-b border-dark-03 rounded-l-md items-center justify-center'>
+                                        <IoSearchSharp />
+                                    </div>
+                                    <input
+                                        onChange={(e) => {
+                                            setSearchText(e.target.value);
+                                            setCurrentPage(0);
+                                        }}
+                                        type="text" className='w-full md:w-auto bg-white border border-dark-03 rounded-r-md py-3 pl-4 pr-5 focus:outline-0 focus:border-theme-primary h-[50px]' placeholder='Search...' />
                                 </div>
-                                <input
-                                    onChange={(e) => {
-                                        setSearchText(e.target.value);
-                                        setCurrentPage(0);
-                                    }}
-                                    type="text" className='w-full md:w-auto bg-white border border-dark-03 rounded-r-md py-3 pl-4 pr-5 focus:outline-0 focus:border-theme-primary h-[50px]' placeholder='Search...' />
                             </div>
                         </div>
                     </div>
