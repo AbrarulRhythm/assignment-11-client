@@ -30,6 +30,7 @@ import CompletedTutions from "../pages/Dashboard/CompletedTutions/CompletedTutio
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import TransactionHistory from "../pages/Dashboard/TransactionHistory/TransactionHistory";
 import AllTutors from "../pages/AllTutors/AllTutors";
+import TutorDetails from "../pages/TutorDetails/TutorDetails";
 
 export const router = createBrowserRouter([
     {
@@ -52,7 +53,12 @@ export const router = createBrowserRouter([
             {
                 path: 'tutors',
                 Component: AllTutors
+            },
+            {
+                path: 'tutors/:id',
+                Component: TutorDetails
             }
+
         ]
     },
     {
