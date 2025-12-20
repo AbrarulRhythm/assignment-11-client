@@ -60,7 +60,7 @@ const TutorDetails = () => {
                                     <div className='w-full md:w-7/12 lg:w-8/12 px-3'>
                                         <div className='bg-content-bg rounded-md'>
                                             <h3 className='text-dark-09 font-semibold text-[20px] pt-6 md:pt-7 pl-6 md:pl-7'>Tutor Info</h3>
-                                            {tutorDetails.about && <p className='mb-6'>{tutorDetails.about}</p>}
+                                            {tutorDetails.about && <p className='px-6 pt-3'>{tutorDetails.about}</p>}
                                             <div className=' flex flex-col lg:flex-row items-start md:items-center justify-between'>
                                                 <ul className='space-y-4 w-full lg:w-[50%] p-6 md:p-7'>
                                                     <li className='flex items-center justify-between'>Company: <span className='text-dark-09 font-medium'>{tutorDetails.company ? tutorDetails.company : '---'}</span></li>
