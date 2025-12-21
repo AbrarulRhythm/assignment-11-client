@@ -246,6 +246,7 @@ const AllTuitions = () => {
                                                     <TuitionCard
                                                         key={tuition._id}
                                                         tuition={tuition}
+                                                        flexClasses='md:w-6/12 lg:w-4/12'
                                                     ></TuitionCard>
                                                 )
                                             })

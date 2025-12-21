@@ -14,11 +14,11 @@ import cyan from '../../../assets/bg/cyan.png'
 import { TiBookmark } from "react-icons/ti";
 import { Link } from 'react-router';
 
-const TuitionCard = ({ tuition }) => {
+const TuitionCard = ({ tuition, flexClasses = 'md:w-6/12 lg:w-3/12' }) => {
     const { _id, subject, class: tuitionClass, location, budget, schedule, bg } = tuition;
 
     return (
-        <div className='w-full md:w-6/12 lg:w-4/12 px-3 mb-6'>
+        <div className={`w-full ${flexClasses} px-3 mb-6`}>
             <div className='flex flex-col h-full bg-white rounded-md border border-dark-03 group'>
                 <div className='h-full bg-white  rounded-md relative'>
                     <div className='relative'>
