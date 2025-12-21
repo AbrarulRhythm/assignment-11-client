@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye } from 'react-icons/fa';
 import { IoEyeOff } from 'react-icons/io5';
@@ -34,9 +34,12 @@ const Login = () => {
         }
     }
 
-    if (user) {
-        navigate(location?.state || '/');
-    }
+
+    useEffect(() => {
+        if (user) {
+            navigate(location?.state || '/');
+        }
+    }, [user, navigate, location?.state]);
 
     return (
         <>

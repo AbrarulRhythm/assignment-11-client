@@ -9,7 +9,11 @@ const DashboardOverview = () => {
     const { isLoading, role } = useRole();
 
     if (isLoading) {
-        return <div>This is Role Loading</div>
+        return (
+            <div className='text-start md:text-center'>
+                <span className="loading loading-bars loading-lg"></span>
+            </div>
+        );
     }
 
     if (role === 'admin') {

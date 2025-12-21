@@ -1,13 +1,18 @@
 import React from 'react';
 import useAuth from '../hooks/useAuth';
 import { Navigate, useLocation } from 'react-router';
+import LoadingPage from '../components/LoadingPage/LoadingPage';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
     const location = useLocation();
 
+    if (user) {
+        return children;
+    }
+
     if (loading) {
-        return <div>This is Loading...</div>
+        return <LoadingPage></LoadingPage>
     }
 
     if (!user) {
