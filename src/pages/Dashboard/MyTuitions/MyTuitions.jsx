@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import DashboardTitle from '../../../components/DashboardTitle/DashboardTitle';
 import moment from 'moment';
 import { LuEye } from 'react-icons/lu';
@@ -10,12 +10,18 @@ import { useQuery } from '@tanstack/react-query';
 import { IoCheckmark } from "react-icons/io5";
 import { CgClose } from "react-icons/cg";
 import { MdInfoOutline } from "react-icons/md";
+import DetailsModalTuition from '../../Shared/TuitionModals/DetailsModalTuition';
+import EditModalTuition from '../../Shared/TuitionModals/EditModalTuition';
+import Swal from 'sweetalert2';
 
 const MyTuitions = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const detailsModalRef = useRef();
+    const editModalRef = useRef();
+    const [selectTuition, setSelectTuition] = useState([]);
 
-    const { isLoading, data: responseData = { result: [] }, } = useQuery({
+    const { isLoading, data: responseData = { result: [] }, refetch } = useQuery({
         queryKey: ['approvedTuitions', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/tuitions?email=${user.email}&status=approved`);
@@ -23,6 +29,47 @@ const MyTuitions = () => {
         }
     });
     const tuitions = responseData.result;
+
+    // Handle Details Tuition
+    const handleDetailsTuition = (tuition) => {
+        setSelectTuition(tuition);
+        detailsModalRef.current.showModal();
+    }
+
+    // Hnadle Edit Tuition
+    const handleEditTuition = (tuition) => {
+        setSelectTuition(tuition);
+        editModalRef.current.showModal();
+    }
+
+    // Handle Delete Tuition
+    const handleDeleteTuition = (tuitionID) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/tuitions/${tuitionID}/delete`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            refetch();
+
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your tuition has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    });
+            }
+        });
+    }
 
     return (
         <div className='dashboard'>
@@ -96,9 +143,15 @@ const MyTuitions = () => {
                                                 </td>
                                                 <td>
                                                     <div className='flex items-center gap-2'>
-                                                        <button data-tip="Details" className='tooltip view-btn'><LuEye /></button>
-                                                        <button data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
-                                                        <button data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
+                                                        <button
+                                                            onClick={() => handleDetailsTuition(tuition)}
+                                                            data-tip="Details" className='tooltip view-btn'><LuEye /></button>
+                                                        <button
+                                                            onClick={() => handleEditTuition(tuition)}
+                                                            data-tip="Edit" className='tooltip edit-btn'><FiEdit /></button>
+                                                        <button
+                                                            onClick={() => handleDeleteTuition(tuition._id)}
+                                                            data-tip="Delete" className='tooltip delete-btn'><FaRegTrashAlt /></button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -110,6 +163,19 @@ const MyTuitions = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* Tuition Details Modal */}
+            <DetailsModalTuition
+                selectTuition={selectTuition}
+                detailsModalRef={detailsModalRef}
+            ></DetailsModalTuition>
+
+            {/* Tuition Update Modal */}
+            <EditModalTuition
+                selectTuition={selectTuition}
+                editModalRef={editModalRef}
+                refetchTuitions={refetch}
+            ></EditModalTuition>
         </div>
     );
 };

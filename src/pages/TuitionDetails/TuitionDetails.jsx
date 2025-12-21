@@ -196,6 +196,14 @@ const TuitionDetails = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className='mt-6'>
+                                    <h4 className='text-xl font-semibold text-dark-09 border-l-2 border-theme-primary pl-3 leading-[1.1] my-6'>Student Details</h4>
+                                    <div>
+                                        <h4 className='text-xl font-semibold text-dark-09 mb-1'>{tutionDetails.name}</h4>
+                                        <p>Email: <span className='text-dark-08'>{tutionDetails.email}</span></p>
+                                        <p>Phone: <span className='text-dark-08'>{tutionDetails.phone}</span></p>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </>
