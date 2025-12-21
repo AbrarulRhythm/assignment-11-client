@@ -324,3 +324,11 @@ table th {
 .side-nav ul a.active {
   @apply bg-content-bg text-theme-primary;
 }
+
+.blog-meta li {
+  @apply inline-block
+}
+
+.blog-meta li:not(:last-child):after {
+  @apply content-[''] ml-4 mr-4 inline-block w-1 h-1 rounded-full bg-dark-03 align-middle;
+}

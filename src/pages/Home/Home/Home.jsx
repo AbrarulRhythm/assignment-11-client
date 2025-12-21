@@ -6,6 +6,7 @@ import LatestTuition from '../LatestTuition/LatestTuition';
 import WhyChooseUs from '../WhyChooseUs/WhyChooseUs';
 import LatestTutor from '../LatestTutor/LatestTutor';
 import PlatformWorks from '../PlatformWorks/PlatformWorks';
+import LatestBlog from '../LatestBlog/LatestBlog';
 
 const Home = () => {
     return (
@@ -38,6 +39,10 @@ const Home = () => {
 
             <section className='bg-content-bg pt-10 pb-4 lg:pt-20 lg:pb-14 mt-4 lg:mt-14 relative z-10'>
                 <PlatformWorks></PlatformWorks>
+            </section>
+
+            <section className='py-10 lg:py-20'>
+                <LatestBlog></LatestBlog>
             </section>
         </>
     );
