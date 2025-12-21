@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 const axiosSecure = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://assignment-11-server-inky-seven.vercel.app'
 });
 
 const useAxiosSecure = () => {
