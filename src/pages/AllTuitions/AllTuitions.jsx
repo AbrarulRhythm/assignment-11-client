@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import SectionBanner from '../../components/SectionBanner/SectionBanner';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import useAxios from '../../hooks/useAxios';
-import { MdInfoOutline } from 'react-icons/md';
+import { MdClose, MdInfoOutline } from 'react-icons/md';
 import TuitionCard from '../Shared/TuitionCard/TuitionCard';
-import { IoSearchSharp } from 'react-icons/io5';
+import { IoFilter, IoSearchSharp } from 'react-icons/io5';
 import { useForm, useWatch } from 'react-hook-form';
 
 const AllTuitions = () => {
@@ -14,6 +14,7 @@ const AllTuitions = () => {
     const [filterClasses, setFilterClasses] = useState('');
     const [filterSubject, setFilterSubject] = useState('');
     const [filterTutorGender, setFilterTutorGender] = useState('');
+    const [openFilterMenu, setOpenFilterMenu] = useState(false);
     const [sort, setSort] = useState('');
     const [order, setOrder] = useState('');
     const limit = 12;
@@ -168,60 +169,68 @@ const AllTuitions = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <button
+                            onClick={() => setOpenFilterMenu(!openFilterMenu)}
+                            className='flex md:hidden items-center gap-1.5 bg-dark-02 px-4 py-2 rounded-md'>
+                            {openFilterMenu ? <><MdClose className='text-lg' /> Close filter menu</> : <><IoFilter className='text-lg' /> Filter</>}
+                        </button>
                     </div>
 
                     <div className='flex flex-wrap -mx-3'>
-                        <div className='w-auto md:w-3/12 px-3'>
-                            <div className='border border-dark-03 rounded-md mb-6'>
-                                <h4 className='p-4 border-b border-dark-03'>Class</h4>
-                                <form className='px-4 py-5'>
-                                    {classList.map(cls => (
-                                        <label key={cls} className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
+                        <div className={`${openFilterMenu ? 'left-0' : '-left-[270px]'} w-[65%] md:w-3/12 px-3 absolute duration-300 md:static z-30 shadow-2xl md:shadow-none bg-white md:bg-transparent rounded-r-md -mt-6 md:mt-0`}>
+                            <div className='bg-white pl-4 md:pl-0 p-6 md:p-0'>
+                                <div className='border border-dark-03 rounded-md mb-6'>
+                                    <h4 className='p-4 border-b border-dark-03'>Class</h4>
+                                    <form className='px-4 py-5'>
+                                        {classList.map(cls => (
+                                            <label key={cls} className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
+                                                <input
+                                                    value={cls}
+                                                    {...classRegister("classes")}
+                                                    type="checkbox" className="checkbox checkbox-sm" />
+                                                {cls}
+                                            </label>
+                                        ))}
+                                    </form>
+                                </div>
+                                <div className='border border-dark-03 rounded-md mb-6'>
+                                    <h4 className='p-4 border-b border-dark-03'>Tutor Gender</h4>
+                                    <form className='px-4 py-5'>
+                                        <label className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
                                             <input
-                                                value={cls}
-                                                {...classRegister("classes")}
+                                                value='Male'
+                                                {...tutorGenderRegister("tutorGender")}
                                                 type="checkbox" className="checkbox checkbox-sm" />
-                                            {cls}
+                                            Male
                                         </label>
-                                    ))}
-                                </form>
-                            </div>
-                            <div className='border border-dark-03 rounded-md mb-6'>
-                                <h4 className='p-4 border-b border-dark-03'>Tutor Gender</h4>
-                                <form className='px-4 py-5'>
-                                    <label className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
-                                        <input
-                                            value='Male'
-                                            {...tutorGenderRegister("tutorGender")}
-                                            type="checkbox" className="checkbox checkbox-sm" />
-                                        Male
-                                    </label>
-                                    <label className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
-                                        <input
-                                            value='Female'
-                                            {...tutorGenderRegister("tutorGender")}
-                                            type="checkbox" className="checkbox checkbox-sm" />
-                                        Female
-                                    </label>
-                                </form>
-                            </div>
-                            <div className='border border-dark-03 rounded-md'>
-                                <h4 className='p-4 border-b border-dark-03'>Subject</h4>
-                                <form className='px-4 py-5'>
-                                    {
-                                        subjectList.map((subject, index) => {
-                                            return (
-                                                <label key={index} className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
-                                                    <input
-                                                        value={subject}
-                                                        {...subjectRegister("subjects")}
-                                                        type="checkbox" className="checkbox checkbox-sm" />
-                                                    {subject}
-                                                </label>
-                                            )
-                                        })
-                                    }
-                                </form>
+                                        <label className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
+                                            <input
+                                                value='Female'
+                                                {...tutorGenderRegister("tutorGender")}
+                                                type="checkbox" className="checkbox checkbox-sm" />
+                                            Female
+                                        </label>
+                                    </form>
+                                </div>
+                                <div className='border border-dark-03 rounded-md'>
+                                    <h4 className='p-4 border-b border-dark-03'>Subject</h4>
+                                    <form className='px-4 py-5'>
+                                        {
+                                            subjectList.map((subject, index) => {
+                                                return (
+                                                    <label key={index} className='flex gap-2 w-full cursor-pointer hover:bg-dark-02 px-2 py-2 rounded-md text-sm'>
+                                                        <input
+                                                            value={subject}
+                                                            {...subjectRegister("subjects")}
+                                                            type="checkbox" className="checkbox checkbox-sm" />
+                                                        {subject}
+                                                    </label>
+                                                )
+                                            })
+                                        }
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div className='w-auto md:w-9/12 px-3'>
