@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import blogImage1 from '../../../assets/blog-01.png';
 import blogImage2 from '../../../assets/blog-02.png';
 import blogImage3 from '../../../assets/blog-03.png';
+import { motion } from 'framer-motion';
 
 const blogData = [
     {
@@ -41,12 +42,24 @@ const blogData = [
 const LatestBlog = () => {
     return (
         <div className='container'>
-            <SectionTitle
-                title='Latest News'
-                subTitle='Our Recent Posts'
-            ></SectionTitle>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+            >
+                <SectionTitle
+                    title='Latest News'
+                    subTitle='Our Recent Posts'
+                ></SectionTitle>
+            </motion.div>
 
-            <div className='flex flex-wrap -mx-3'>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className='flex flex-wrap -mx-3'>
                 {
                     blogData.map((data) => {
                         return (
@@ -74,10 +87,15 @@ const LatestBlog = () => {
                         )
                     })
                 }
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1000" className='mt-6 text-center'>
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                viewport={{ once: true }}
+                data-aos="fade-up" data-aos-duration="1000" className='mt-6 text-center'>
                 <Link to='/' className='button button-fill'>Read More Blogs</Link>
-            </div>
+            </motion.div>
         </div>
     );
 };

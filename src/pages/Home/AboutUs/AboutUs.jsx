@@ -8,6 +8,7 @@ import acheivment from '../../../assets/acheivment.png';
 import students from '../../../assets/students.png';
 import teachers from '../../../assets/teachers.png';
 import world from '../../../assets/world.png';
+import { motion } from 'framer-motion';
 
 const counterArea = [
     {
@@ -40,7 +41,12 @@ const AboutUs = () => {
     return (
         <div className='container'>
             <div className='flex flex-wrap -mx-3'>
-                <div className='w-full md:w-6/12 px-3 mb-8'>
+                <motion.div
+                    initial={{ opacity: 0, y: 140 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className='w-full md:w-6/12 px-3 mb-8'>
                     <div className='pl-6 lg:pl-[100px] pr-0 lg:pr-5 relative'>
                         <div className='relative'>
                             <img src={element} className='absolute -top-6 -left-6' alt="element" />
@@ -53,8 +59,13 @@ const AboutUs = () => {
                             <h5 className='uppercase text-dark-09 text-[22px] font-semibold leading-[1.3]'>YEARS EXPERIENCE <br /> JUST ACHIVED</h5>
                         </div>
                     </div>
-                </div>
-                <div className='w-full md:w-6/12 px-3'>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, y: 140 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className='w-full md:w-6/12 px-3'>
                     <SectionTitle
                         title='About Us'
                         subTitle='Welcome to the Online Learning Center'
@@ -84,11 +95,16 @@ const AboutUs = () => {
                             </div>
                         </li>
                     </ul>
-                </div>
+                </motion.div>
             </div>
 
             {/* Count Area */}
-            <div className='count-area pt-12'>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className='count-area pt-12'>
                 <div className='flex flex-wrap -mx-3'>
                     {
                         counterArea.map((item) => {
@@ -106,7 +122,7 @@ const AboutUs = () => {
                         })
                     }
                 </div>
-            </div>
+            </motion.div>
 
 
             {/* Elements */}

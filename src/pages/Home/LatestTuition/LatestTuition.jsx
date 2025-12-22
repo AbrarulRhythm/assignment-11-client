@@ -5,6 +5,7 @@ import useAxios from '../../../hooks/useAxios';
 import { MdInfoOutline } from 'react-icons/md';
 import TuitionCard from '../../Shared/TuitionCard/TuitionCard';
 import { Link } from 'react-router';
+import { motion } from 'framer-motion';
 
 const LatestTuition = () => {
     const axiosInstance = useAxios();
@@ -19,12 +20,24 @@ const LatestTuition = () => {
 
     return (
         <div className='container'>
-            <SectionTitle
-                title='Latest Tuition'
-                subTitle='Explore Recent Tuitions'
-            ></SectionTitle>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+            >
+                <SectionTitle
+                    title='Latest Tuition'
+                    subTitle='Explore Recent Tuitions'
+                ></SectionTitle>
+            </motion.div>
 
-            <div className='flex flex-wrap -mx-3'>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className='flex flex-wrap -mx-3'>
                 {/* Loading State */}
                 {isLoading ? (
                     <div className='text-center mx-auto'>
@@ -51,7 +64,7 @@ const LatestTuition = () => {
                         )}
                     </>
                 )}
-            </div>
+            </motion.div>
         </div >
     );
 };

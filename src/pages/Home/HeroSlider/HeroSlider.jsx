@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import heroImage from '../../../assets/hero-image.png';
+import { motion } from 'framer-motion';
 
 const HeroSlider = () => {
     return (
@@ -14,7 +15,12 @@ const HeroSlider = () => {
                             <Link to='/login' className='button button-fill inline-block mt-4 lg:mt-6'>Get Started</Link>
                         </div>
                         <div className='w-full lg:w-6/12 px-3'>
-                            <div className='hero-image-wrap'>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                viewport={{ once: true }}
+                                className='hero-image-wrap'>
                                 <div className='hero-image bg-content-bg rounded-full m-auto lg:m-0 lg:ml-auto relative overflow-hidden'>
                                     <img src={heroImage} className='absolute z-20 top-[50%] left-[50%] -translate-x-[53%] -translate-y-[46%]' alt='hero image' />
                                     <svg className='animate-rotate absolute top-[50%] left-[50%] -translate-[50%] z-10' width="537" height="537" viewBox="0 0 503 503" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +34,7 @@ const HeroSlider = () => {
                                     </svg>
 
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import useAxios from '../../../hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import TutorCard from '../../Shared/TutorCard/TutorCard';
+import { motion } from 'framer-motion';
 
 const LatestTutor = () => {
     const axiosInstance = useAxios();
@@ -17,12 +18,24 @@ const LatestTutor = () => {
 
     return (
         <div className='container'>
-            <SectionTitle
-                title='Latest Tutors'
-                subTitle='Recently Joined Tutors'
-            ></SectionTitle>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+            >
+                <SectionTitle
+                    title='Latest Tutors'
+                    subTitle='Recently Joined Tutors'
+                ></SectionTitle>
+            </motion.div>
 
-            <div className='flex flex-wrap -mx-3'>
+            <motion.div
+                initial={{ opacity: 0, y: 140 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className='flex flex-wrap -mx-3'>
                 {/* Loading State */}
                 {isLoading ? (
                     <div className='text-center mx-auto'>
@@ -49,7 +62,7 @@ const LatestTutor = () => {
                         )}
                     </>
                 )}
-            </div>
+            </motion.div>
 
             {/* Elements */}
             <div>
